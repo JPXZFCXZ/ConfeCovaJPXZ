@@ -668,8 +668,8 @@
    ⚙️  CONFIGURACIÓN — CAMBIA ESTOS DOS VALORES
    Obtén estos datos en: supabase.com → tu proyecto → Settings → API
 ================================================ */
-const SUPA_URL = 'TU_URL';          // ej: https://xyzxyz.supabase.co
-const SUPA_KEY = 'TU_ANON_KEY';     // empieza con "eyJ..."
+const SUPA_URL = 'https://ggurrwhyamgnzelakvuw.supabase.co';
+const SUPA_KEY = 'sb_publishable_Cvt0XmzzMjvhiJMo0h49-w_QlZ4vOA2';
 
 // Rutas de tus flyers (ponlos en la misma carpeta del HTML en GitHub)
 const FLYERS = {
@@ -685,7 +685,7 @@ let sb, ready = false;
 try {
   sb = supabase.createClient(SUPA_URL, SUPA_KEY);
   // Ocultar banner si ya está configurado
-  if (SUPA_URL !== 'TU_URL') {
+  {
     const b = document.getElementById('setupBanner');
     if (b) b.remove();
     ready = true;
