@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Covadonga · Ciberseguridad 2026</title>
+  <title>Covadonga &middot; Ciberseguridad 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -78,219 +78,380 @@
       background: white;
       backdrop-filter: blur(0px);
       border-bottom: 1px solid #e0e4e8;
-      padding: 12px 20px;
+      padding: 10px 16px;
       display: flex; align-items: center; justify-content: space-between;
-      min-height: 65px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      min-height: 54px;
     }
-    .logo-img { height: 42px; width: auto; object-fit: contain; display: block; }
+    .logo-img { height: 34px; width: auto; object-fit: contain; display: block; }
 
-    .topbar-right { display:flex;align-items:center;gap:12px }
+    .topbar-right { display:flex;align-items:center;gap:8px }
 
     .badge-conf {
       font-family: 'DM Mono', monospace;
-      font-size: .62rem; letter-spacing: .1em; text-transform: uppercase;
-      color: #1e5fd4; background: rgba(30,95,212,0.08);
-      border-radius: 30px; padding: 4px 12px;
+      font-size: .58rem; letter-spacing: .1em; text-transform: uppercase;
+      color: #1e5fd4; border: 1px solid rgba(30,95,212,.2);
+      border-radius: 30px; padding: 3px 9px; background: rgba(30,95,212,.05);
     }
+    @media(max-width:360px) { .badge-conf { display:none } }
 
     .user-pill {
-      display: flex; align-items: center; gap: 8px;
-      background: rgba(30,95,212,0.06);
-      border: 1px solid rgba(30,95,212,0.15);
-      border-radius: 30px; padding: 5px 12px 5px 5px;
-      font-size: .8rem; font-weight: 500; color: #1a2a3a;
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(30,95,212,.08);
+      border: 1px solid rgba(30,95,212,.15);
+      border-radius: 30px; padding: 4px 10px 4px 4px;
+      font-size: .74rem; font-weight: 500; color: #1a2a3a;
     }
     .u-av {
-      width: 28px; height: 28px; border-radius: 50%;
+      width: 24px; height: 24px; border-radius: 50%;
       background: linear-gradient(135deg,var(--b2),var(--cyan));
-      color: white; font-size: .7rem; font-weight: 700;
+      color: white; font-size: .64rem; font-weight: 700;
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .u-name { max-width: 120px; overflow:hidden;text-overflow:ellipsis;white-space:nowrap; color:#1a2a3a }
+    .u-name { max-width: 100px; overflow:hidden;text-overflow:ellipsis;white-space:nowrap }
 
     .btn-out {
-      font-family:'DM Sans',sans-serif; font-size:.75rem;font-weight:500;
+      font-family:'DM Sans',sans-serif; font-size:.72rem;font-weight:500;
       color:#666;background:transparent;border:1px solid #ddd;
-      border-radius:8px;padding:6px 14px;cursor:pointer;transition:var(--t);white-space:nowrap;
+      border-radius:6px;padding:5px 10px;cursor:pointer;transition:var(--t);white-space:nowrap;
     }
-    .btn-out:hover { border-color:#ff4d6d;color:#ff4d6d;background:rgba(255,77,109,0.05) }
+    .btn-out:hover { border-color:#ff4d6d;color:#ff4d6d;background:rgba(255,77,109,.05) }
 
-    /* ─── PAGINA PRINCIPAL DIRECTA ──────────────────────────────────── */
-    .main-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 30px 20px 60px;
-      width: 100%;
-    }
+    /* ─── LOGIN ──────────────────────────────────── */
+    #pgLogin { justify-content:center; align-items:center; padding:20px 16px 50px }
+    .login-wrap { width:100%; max-width:360px }
 
-    /* Hero principal */
-    .main-hero {
-      background: linear-gradient(135deg, rgba(30,95,212,0.05), rgba(0,212,255,0.02));
-      border-radius: 24px;
-      padding: 50px 40px;
-      text-align: center;
-      margin-bottom: 40px;
-      border: 1px solid rgba(30,95,212,0.1);
+    /* Countdown banner */
+    .countdown-banner {
+      background: linear-gradient(90deg, rgba(17,65,160,.5), rgba(0,212,255,.1));
+      border: 1px solid rgba(0,212,255,.2);
+      border-radius: 8px; padding: 10px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 22px;
+      animation: fadeUp .4s ease both;
     }
-    .main-hero h1 {
+    .cb-label { font-size:.68rem;color:var(--dim);text-transform:uppercase;letter-spacing:.1em }
+    .cb-date  { font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:var(--cyan) }
+    .cb-dots  { display:flex;gap:6px }
+    .cb-unit  { text-align:center }
+    .cb-num   { font-family:'DM Mono',monospace;font-size:1.1rem;font-weight:500;color:var(--wht);line-height:1 }
+    .cb-lbl   { font-size:.52rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;display:block }
+
+    .lhero {
+      text-align: center; margin-bottom: 24px;
+      animation: fadeUp .4s .05s ease both;
+    }
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: .58rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 10px; display: block;
+    }
+    .lhero h1 {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 800;
-      background: linear-gradient(135deg, #1141a0, #00d4ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: clamp(1.7rem,6vw,2.3rem);
+      font-weight: 800; line-height: 1.0; margin-bottom: 6px;
+    }
+    .lhero h1 em {
+      font-style: normal;
+      background: linear-gradient(120deg, var(--b3), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 16px;
     }
-    .main-hero p {
-      color: var(--dim);
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
+    .lhero p { color: var(--dim); font-size: .8rem; font-weight: 300 }
 
-    /* Grid de información hospital */
-    .hospital-info {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin-bottom: 50px;
+    /* Tabs minimalistas */
+    .tabs {
+      display: flex; gap: 0;
+      border-bottom: 1px solid var(--bord);
+      margin-bottom: 20px;
+      animation: fadeUp .4s .1s ease both;
     }
-    .info-card {
-      background: rgba(255,255,255,0.03);
+    .tab {
+      flex: 1; padding: 10px 8px;
+      background: transparent; border: none;
+      color: var(--dim); font-family: 'DM Sans',sans-serif;
+      font-size: .8rem; font-weight: 500; cursor: pointer;
+      transition: var(--t); border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .tab.on { color: var(--wht); border-bottom-color: var(--b3) }
+
+    .fcard { animation: fadeUp .4s .15s ease both }
+
+    .fpanel { display:none; flex-direction:column; gap:12px }
+    .fpanel.on { display:flex }
+
+    .field { display:flex; flex-direction:column; gap:5px }
+    label { font-size:.65rem;font-weight:500;color:var(--dim);letter-spacing:.1em;text-transform:uppercase }
+    .iw { position:relative }
+    .iw svg {
+      position:absolute;left:12px;top:50%;transform:translateY(-50%);
+      width:13px;height:13px;color:var(--dim2);pointer-events:none;
+    }
+    input[type=text], input[type=password], select {
+      width:100%;
+      background: rgba(255,255,255,.04);
       border: 1px solid var(--bord);
-      border-radius: 16px;
-      padding: 24px;
-      transition: var(--t);
+      border-radius: 8px; color: var(--wht);
+      font-family:'DM Sans',sans-serif; font-size:.88rem;
+      padding: 11px 12px 11px 36px;
+      outline: none; transition: var(--t); -webkit-appearance:none;
     }
-    .info-card:hover {
-      border-color: rgba(41,121,255,0.3);
-      transform: translateY(-2px);
-    }
-    .info-icon {
-      font-size: 2rem;
-      margin-bottom: 16px;
-    }
-    .info-card h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.2rem;
-      margin-bottom: 8px;
-      color: var(--wht);
-    }
-    .info-card p {
-      color: var(--dim);
-      font-size: 0.85rem;
-      line-height: 1.5;
-    }
-
-    /* Barra de registro */
-    .reg-bar {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      margin-bottom: 40px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    }
-    .reg-bar h2 {
-      font-family: 'Syne', sans-serif;
-      color: #1a2a3a;
-      margin-bottom: 8px;
-    }
-    .reg-bar p {
-      color: #666;
-      margin-bottom: 24px;
-      font-size: 0.9rem;
-    }
-    .form-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-    .form-group {
-      flex: 1;
-      min-width: 200px;
-    }
-    .form-group label {
-      display: block;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #666;
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-    .form-group input, .form-group select {
-      width: 100%;
-      padding: 12px 14px;
-      background: #f8f9fa;
-      border: 1px solid #e0e4e8;
-      border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      transition: var(--t);
-    }
-    .form-group input:focus, .form-group select:focus {
-      outline: none;
+    select option { background: var(--bg2); }
+    input::placeholder { color:rgba(106,133,176,.4) }
+    input:focus, select:focus {
       border-color: var(--b3);
-      box-shadow: 0 0 0 3px rgba(41,121,255,0.1);
-    }
-    .btn-reg {
-      background: linear-gradient(135deg, var(--b1), var(--b3));
-      color: white;
-      border: none;
-      padding: 12px 28px;
-      border-radius: 10px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--t);
-      font-size: 0.9rem;
-    }
-    .btn-reg:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(41,121,255,0.3);
+      background: rgba(41,121,255,.06);
+      box-shadow: 0 0 0 3px rgba(41,121,255,.12);
     }
 
-    /* Footer con info completa */
-    .footer-full {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      margin-top: 40px;
-      text-align: center;
+    .btn {
+      width:100%; padding:12px;
+      background: linear-gradient(135deg,var(--b1),var(--b3));
+      border:none; border-radius:8px;
+      color:var(--wht); font-family:'Syne',sans-serif;
+      font-size:.88rem; font-weight:700; letter-spacing:.08em;
+      cursor:pointer; transition:var(--t); margin-top:2px;
     }
-    .footer-full img {
-      height: 50px;
-      margin-bottom: 20px;
-      opacity: 0.8;
-    }
-    .footer-full h4 {
-      color: #1a2a3a;
-      margin-bottom: 12px;
-      font-size: 1.1rem;
-    }
-    .footer-full p {
-      color: #666;
-      font-size: 0.85rem;
-      line-height: 1.6;
-      margin-bottom: 8px;
-    }
-    .footer-full .small {
-      font-size: 0.75rem;
-      color: #999;
-      margin-top: 16px;
-    }
+    .btn:hover { opacity:.9; box-shadow:0 8px 24px rgba(41,121,255,.3) }
+    .btn:active { transform:scale(.99) }
+    .btn:disabled { opacity:.5;cursor:not-allowed }
 
     .msg {
       display:none; align-items:center; gap:7px;
-      padding:10px 14px; border-radius:10px;
-      font-size:.8rem; margin-top: 12px;
+      padding:9px 12px; border-radius:7px;
+      font-size:.78rem; font-weight:400; line-height:1.4;
     }
-    .msg.err { display:flex; background:rgba(255,77,109,.08); border:1px solid rgba(255,77,109,.2); color:#e74c5c }
-    .msg.ok  { display:flex; background:rgba(0,229,160,.07); border:1px solid rgba(0,229,160,.2); color:#00b894 }
+    .msg.err { display:flex;background:rgba(255,77,109,.08);border:1px solid rgba(255,77,109,.2);color:#ff8fa3 }
+    .msg.ok  { display:flex;background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.2);color:var(--ok) }
 
-    @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+    .foot-note {
+      text-align:center; margin-top:16px;
+      font-size:.65rem; color:var(--dim2);
+      animation:fadeUp .4s .2s ease both;
+    }
+
+    /* ─── DASHBOARD ──────────────────────────────── */
+    #pgDash { flex-direction:column }
+    .dbody {
+      flex:1; padding:18px 16px 60px;
+      max-width:780px; width:100%; margin:0 auto;
+      display:flex; flex-direction:column; gap:22px;
+    }
+
+    /* Hero */
+    .dhero {
+      background: linear-gradient(130deg,rgba(17,65,160,.28),rgba(41,121,255,.10));
+      border:1px solid var(--bord2);
+      border-radius:12px; padding:20px 18px;
+      position:relative; overflow:hidden;
+      animation:fadeUp .35s ease both;
+    }
+    .dhero::after {
+      content:''; position:absolute;
+      top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;
+      background:radial-gradient(circle,rgba(0,212,255,.1),transparent 70%);
+      pointer-events:none;
+    }
+    .d-eyebrow {
+      font-family:'DM Mono',monospace; font-size:.58rem;
+      letter-spacing:.2em; text-transform:uppercase; color:var(--cyan);
+      margin-bottom:6px; display:block;
+    }
+    .dhero h2 {
+      font-family:'Syne',sans-serif;
+      font-size:clamp(1.15rem,4vw,1.55rem);
+      font-weight:700; line-height:1.15; margin-bottom:4px;
+    }
+    .dhero p { color:var(--dim); font-size:.78rem; font-weight:300 }
+
+    /* Chips */
+    .chips { display:flex;flex-wrap:wrap;gap:7px;animation:fadeUp .35s .06s ease both }
+    .chip {
+      display:flex;align-items:center;gap:5px;
+      background:rgba(255,255,255,.03); border:1px solid var(--bord);
+      border-radius:30px; padding:5px 11px;
+      font-size:.7rem; color:var(--dim);
+    }
+    .chip b { color:var(--wht);font-weight:500 }
+
+    /* Seccion separador */
+    .sec-head {
+      display:flex;align-items:center;gap:10px;
+      font-family:'DM Mono',monospace; font-size:.58rem;
+      letter-spacing:.18em; text-transform:uppercase; color:var(--dim2); font-weight:400;
+    }
+    .sec-head::after { content:'';flex:1;height:1px;background:var(--bord) }
+
+    /* Botones flyer */
+    .flyer-btns { display:flex;gap:8px;animation:fadeUp .35s .08s ease both }
+    .fb {
+      display:flex;flex-direction:column;align-items:center;gap:1px;
+      background:rgba(255,255,255,.03); border:1px solid var(--bord);
+      border-radius:8px; padding:12px 22px;
+      cursor:pointer; transition:var(--t);
+      font-family:'DM Mono',monospace; letter-spacing:.1em; text-transform:uppercase;
+    }
+    .fb:hover { background:rgba(41,121,255,.09);border-color:rgba(41,121,255,.28);transform:translateY(-2px) }
+    .fb:active { transform:translateY(0) }
+    .fb-top { font-size:.56rem;color:var(--dim2);font-weight:400 }
+    .fb-bot { font-size:.84rem;color:var(--wht);font-weight:700 }
+
+    /* Intro */
+    .intro-text {
+      background:rgba(255,255,255,.022); border:1px solid var(--bord);
+      border-left:2px solid var(--b3); border-radius:0 8px 8px 0;
+      padding:14px 16px; font-size:.8rem; color:#94aed4;
+      line-height:1.75; font-weight:300;
+      animation:fadeUp .35s .09s ease both;
+    }
+    .intro-text strong { color:var(--wht);font-weight:600 }
+
+    /* Tabs de contenido */
+    .content-tabs { animation:fadeUp .35s .1s ease both }
+    .ctabs-nav {
+      display:flex; gap:0; border-bottom:1px solid var(--bord); margin-bottom:14px;
+      overflow-x:auto; -webkit-overflow-scrolling:touch;
+    }
+    .ctabs-nav::-webkit-scrollbar { display:none }
+    .ctab {
+      flex-shrink:0; padding:9px 14px;
+      background:transparent;border:none;color:var(--dim);
+      font-family:'DM Sans',sans-serif;font-size:.76rem;font-weight:500;
+      cursor:pointer;transition:var(--t);border-bottom:2px solid transparent;margin-bottom:-1px;
+      white-space:nowrap;
+    }
+    .ctab.on { color:var(--wht);border-bottom-color:var(--b3) }
+
+    .ctab-panel { display:none }
+    .ctab-panel.on { display:block }
+
+    /* Stats */
+    .stats-grid {
+      display:grid;gap:8px;grid-template-columns:1fr 1fr;
+    }
+    @media(min-width:500px){ .stats-grid { grid-template-columns:repeat(4,1fr) } }
+    .stat {
+      background:rgba(255,255,255,.022);border:1px solid var(--bord);
+      border-radius:8px;padding:14px 12px;text-align:center;
+    }
+    .stat-num {
+      font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;
+      color:var(--b3);line-height:1;margin-bottom:4px;display:block;
+    }
+    .stat-lbl { font-size:.68rem;color:var(--dim);line-height:1.45 }
+
+    /* Tips */
+    .tips-list { display:flex;flex-direction:column;gap:8px }
+    .tip {
+      display:flex;gap:12px;align-items:flex-start;
+      background:rgba(255,255,255,.022);border:1px solid var(--bord);
+      border-radius:8px;padding:13px 14px;transition:var(--t);
+    }
+    .tip:hover { background:rgba(41,121,255,.07);border-color:rgba(41,121,255,.18) }
+    .tip-num {
+      font-family:'DM Mono',monospace;font-size:.7rem;
+      color:var(--b3);flex-shrink:0;margin-top:1px;
+    }
+    .tip-body h4 { font-family:'Syne',sans-serif;font-size:.84rem;font-weight:700;color:var(--wht);margin-bottom:3px }
+    .tip-body p  { font-size:.73rem;color:var(--dim);line-height:1.55 }
+
+    /* Amenazas */
+    .threats { display:flex;flex-direction:column;gap:0 }
+    .threat-item {
+      display:flex;align-items:flex-start;gap:12px;
+      padding:13px 0;border-bottom:1px solid var(--bord);
+    }
+    .threat-item:last-child { border-bottom:none }
+    .ti-icon {
+      width:30px;height:30px;border-radius:6px;flex-shrink:0;
+      background:rgba(41,121,255,.12);border:1px solid rgba(41,121,255,.18);
+      display:flex;align-items:center;justify-content:center;font-size:.9rem;
+    }
+    .threat-item h4 { font-family:'Syne',sans-serif;font-size:.84rem;font-weight:700;color:var(--wht);margin-bottom:3px }
+    .threat-item p  { font-size:.73rem;color:var(--dim);line-height:1.52 }
+
+    /* Legal */
+    .legal-grid {
+      display:grid;gap:8px;grid-template-columns:1fr 1fr;
+    }
+    @media(min-width:500px){ .legal-grid { grid-template-columns:repeat(3,1fr) } }
+    .lcard {
+      background:rgba(255,255,255,.022);border:1px solid var(--bord);
+      border-radius:8px;padding:13px 12px;
+    }
+    .lc-tag {
+      font-family:'DM Mono',monospace;font-size:.56rem;
+      letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);
+      margin-bottom:4px;display:block;
+    }
+    .lcard h4 { font-family:'Syne',sans-serif;font-size:.84rem;font-weight:700;color:var(--wht);margin-bottom:3px }
+    .lcard p  { font-size:.7rem;color:var(--dim);line-height:1.5 }
+
+    /* Phishing guide - nueva seccion */
+    .phish-card {
+      background:rgba(255,77,109,.05);border:1px solid rgba(255,77,109,.15);
+      border-radius:8px;padding:13px 14px;margin-bottom:8px;
+    }
+    .phish-card h4 { font-family:'Syne',sans-serif;font-size:.84rem;font-weight:700;color:#ff8fa3;margin-bottom:3px }
+    .phish-card p  { font-size:.73rem;color:var(--dim);line-height:1.55 }
+    .tag-warn {
+      font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.1em;
+      text-transform:uppercase;color:#ff8fa3;display:block;margin-bottom:4px;
+    }
+    .phish-list { display:flex;flex-direction:column;gap:6px;margin-top:8px }
+    .phish-item {
+      display:flex;gap:8px;align-items:flex-start;
+      font-size:.73rem;color:var(--dim);line-height:1.5;
+    }
+    .phish-dot { width:6px;height:6px;border-radius:50%;background:rgba(255,77,109,.5);flex-shrink:0;margin-top:5px }
+    .phish-item b { color:var(--wht) }
+
+    /* Footer con logo */
+    .footer-logo-section {
+      margin-top: 8px;
+      border-top: 1px solid var(--bord);
+      padding-top: 20px;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+    }
+    .footer-logo-img { height: 36px; width: auto; object-fit: contain; opacity: .7; filter: brightness(1.1) }
+    .footer-text { text-align:center;font-size:.65rem;color:var(--dim2);line-height:1.7 }
+
+    /* ─── MODAL ──────────────────────────────────── */
+    #modal {
+      position:fixed;inset:0;z-index:999;
+      background:rgba(5,12,26,.95);
+      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      display:none;align-items:center;justify-content:center;padding:16px;
+    }
+    #modal.on { display:flex;animation:fadeIn .2s ease }
+    .mbox {
+      position:relative;max-width:90vw;max-height:90dvh;
+      border-radius:10px;overflow:hidden;
+      box-shadow:0 30px 80px rgba(0,0,0,.7);
+      animation:scaleIn .22s cubic-bezier(.4,0,.2,1) both;
+    }
+    .mbox img { display:block;max-width:100%;max-height:88dvh;object-fit:contain }
+    .mcls {
+      position:absolute;top:8px;right:8px;
+      background:rgba(5,12,26,.85);border:1px solid rgba(255,255,255,.12);
+      border-radius:50%;width:30px;height:30px;
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;color:var(--wht);font-size:.85rem;transition:var(--t);
+    }
+    .mcls:hover { background:rgba(255,77,109,.25) }
+
+    /* ─── ANIMACIONES ─────────────────────────────── */
+    @keyframes fadeUp  { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+    @keyframes fadeIn  { from{opacity:0} to{opacity:1} }
+    @keyframes scaleIn { from{opacity:0;transform:scale(.95)} to{opacity:1;transform:scale(1)} }
+    @keyframes spin    { to{transform:rotate(360deg)} }
+    .spin {
+      display:inline-block;width:13px;height:13px;
+      border:2px solid rgba(255,255,255,.25);border-top-color:var(--wht);
+      border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;
+    }
+    ::-webkit-scrollbar{width:3px}
+    ::-webkit-scrollbar-thumb{background:rgba(41,121,255,.2);border-radius:2px}
   </style>
 </head>
 <body>
@@ -300,91 +461,265 @@
   <div class="glow-orb go2"></div>
 </div>
 
-<!-- PAGINA PRINCIPAL DIRECTA (ya no hay login) -->
-<div id="pgMain" class="pg on">
-  <!-- BARRA BLANCA ARRIBA -->
+<!-- ── LOGIN ───────────────────────────────────── -->
+<div id="pgLogin" class="pg on">
   <div class="topbar">
     <img src="logocova.jpg" alt="Covadonga" class="logo-img" />
     <div class="topbar-right">
-      <span class="badge-conf">Ciber 2026 · Hospital Covadonga</span>
+      <span class="badge-conf">Ciber 2026</span>
     </div>
   </div>
 
-  <div class="main-container">
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:20px 16px">
+    <div class="login-wrap">
+
+      <!-- Countdown -->
+      <div class="countdown-banner">
+        <div>
+          <span class="cb-label">Proxima conferencia</span>
+          <div class="cb-date">Lunes 6 Abr 2026</div>
+        </div>
+        <div class="cb-dots">
+          <div class="cb-unit">
+            <div class="cb-num" id="cdD">--</div>
+            <span class="cb-lbl">dias</span>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:1rem;color:var(--dim2);align-self:center">:</div>
+          <div class="cb-unit">
+            <div class="cb-num" id="cdH">--</div>
+            <span class="cb-lbl">hrs</span>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:1rem;color:var(--dim2);align-self:center">:</div>
+          <div class="cb-unit">
+            <div class="cb-num" id="cdM">--</div>
+            <span class="cb-lbl">min</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lhero">
+        <span class="eyebrow">Acceso Seguro &middot; 2026</span>
+        <h1>Hospital<br/><em>Covadonga</em></h1>
+        <p>Conferencia de Ciberseguridad en Salud</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab on" onclick="swTab('login')">Iniciar sesion</button>
+        <button class="tab"    onclick="swTab('reg')">Registrarse</button>
+      </div>
+
+      <div class="fcard">
+        <!-- LOGIN (YA NO PIDE CONTRASEÑA) -->
+        <div id="fpLogin" class="fpanel on">
+          <div class="field">
+            <label>Nombre completo</label>
+            <div class="iw">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              <input type="text" id="lNom" placeholder="Tu nombre completo" autocomplete="name"/>
+            </div>
+          </div>
+          <div id="lMsg" class="msg"></div>
+          <button class="btn" id="lBtn" onclick="doLogin()">ENTRAR</button>
+        </div>
+        
+        <!-- REGISTRO (NOMBRE, ÁREA, ESTADO) -->
+        <div id="fpReg" class="fpanel">
+          <div class="field">
+            <label>Nombre completo</label>
+            <div class="iw">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              <input type="text" id="rNom" placeholder="Tu nombre completo" autocomplete="name"/>
+            </div>
+          </div>
+          <div class="field">
+            <label>Área</label>
+            <div class="iw">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12h8M12 8v8"/></svg>
+              <input type="text" id="rArea" placeholder="Ej: Administración, Enfermería, Médica..."/>
+            </div>
+          </div>
+          <div class="field">
+            <label>Estado</label>
+            <div class="iw">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              <select id="rEstado">
+                <option value="">Selecciona tu estado</option>
+                <option value="Cordoba">Córdoba</option>
+                <option value="Veracruz">Veracruz</option>
+                <option value="Boca del Rio">Boca del Río</option>
+              </select>
+            </div>
+          </div>
+          <div id="rMsg" class="msg"></div>
+          <button class="btn" id="rBtn" onclick="doReg()">REGISTRARME</button>
+        </div>
+      </div>
+
+      <p class="foot-note">Hospital Covadonga &copy; 2026 &middot; Datos cifrados &middot; Acceso protegido</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── DASHBOARD (TODO TU DISEÑO ORIGINAL) ───────────────────────────────── -->
+<div id="pgDash" class="pg">
+  <div class="topbar">
+    <img src="logocova.jpg" alt="Covadonga" class="logo-img" />
+    <div class="topbar-right">
+      <div class="user-pill">
+        <div class="u-av" id="dAv">U</div>
+        <span class="u-name" id="dNom">Usuario</span>
+      </div>
+      <button class="btn-out" onclick="doOut()">Salir</button>
+    </div>
+  </div>
+
+  <div class="dbody">
+
     <!-- Hero -->
-    <div class="main-hero">
-      <h1>Hospital Covadonga</h1>
-      <p>Conferencia de Ciberseguridad en Salud 2026</p>
+    <div class="dhero">
+      <span class="d-eyebrow">Conferencia &middot; Lunes 6 de Abril 2026</span>
+      <h2 id="dWel">Bienvenido al sistema</h2>
+      <p>Ciberseguridad en Salud &middot; Hospital Covadonga</p>
     </div>
 
-    <!-- Info completa del hospital -->
-    <div class="hospital-info">
-      <div class="info-card">
-        <div class="info-icon">🏥</div>
-        <h3>Hospital Covadonga</h3>
-        <p>Excelencia médica con más de 20 años de experiencia. Atención de calidad en Veracruz.</p>
-      </div>
-      <div class="info-card">
-        <div class="info-icon">📍</div>
-        <h3>Nuestras sedes</h3>
-        <p><strong>Córdoba:</strong> Av. 1 #1802<br>
-        <strong>Veracruz:</strong> Blvd. Adolfo Ruíz Cortines #235<br>
-        <strong>Boca del Río:</strong> Paseo del Mar #42</p>
-      </div>
-      <div class="info-card">
-        <div class="info-icon">📞</div>
-        <h3>Contacto</h3>
-        <p>Tel: (271) 123 4567<br>
-        Email: contacto@covadonga.com<br>
-        Emergencias: 24/7</p>
-      </div>
-      <div class="info-card">
-        <div class="info-icon">🛡️</div>
-        <h3>Ciberseguridad</h3>
-        <p>Protegemos los datos de nuestros pacientes con los más altos estándares internacionales.</p>
+    <!-- Chips -->
+    <div class="chips">
+      <div class="chip">Asistente: <b id="cNom">&#8212;</b></div>
+      <div class="chip">Registro: <b id="cFecha">&#8212;</b></div>
+      <div class="chip">Área: <b id="cArea">&#8212;</b></div>
+      <div class="chip">Estado: <b id="cEstado">&#8212;</b></div>
+    </div>
+
+    <!-- Flyers (TUS BOTONES) -->
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="sec-head">Material</div>
+      <div class="flyer-btns">
+        <div class="fb" onclick="openModal('flyer1.jpg')">
+          <span class="fb-top">Ver</span>
+          <span class="fb-bot">Flyer 1</span>
+        </div>
+        <div class="fb" onclick="openModal('flyer2.jpg')">
+          <span class="fb-top">Ver</span>
+          <span class="fb-bot">Flyer 2</span>
+        </div>
       </div>
     </div>
 
-    <!-- Formulario de registro (solo nombre, área y estado) -->
-    <div class="reg-bar">
-      <h2>📋 Registro de asistencia</h2>
-      <p>Regístrate para acceder a material exclusivo de la conferencia</p>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Nombre completo</label>
-          <input type="text" id="regNombre" placeholder="Ej: María González Pérez">
-        </div>
-        <div class="form-group">
-          <label>Área</label>
-          <input type="text" id="regArea" placeholder="Ej: Administración, Enfermería, Médica...">
-        </div>
-        <div class="form-group">
-          <label>Estado</label>
-          <select id="regEstado">
-            <option value="">Selecciona tu estado</option>
-            <option value="Cordoba">Córdoba</option>
-            <option value="Veracruz">Veracruz</option>
-            <option value="Boca del Rio">Boca del Río</option>
-          </select>
-        </div>
-        <div style="display: flex; align-items: flex-end;">
-          <button class="btn-reg" onclick="doRegistro()">Registrarme</button>
-        </div>
+    <!-- Intro -->
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="sec-head">Sobre la conferencia</div>
+      <div class="intro-text">
+        La <strong>ciberseguridad en el sector salud</strong> es una prioridad critica. Los hospitales manejan datos sensibles de millones de pacientes y operan infraestructuras donde una falla digital puede tener consecuencias directas en vidas humanas. Esta conferencia aborda amenazas actuales, marcos legales en Mexico y estrategias concretas de proteccion para el <strong>Hospital Covadonga</strong>.
       </div>
-      <div id="regMsg" class="msg"></div>
     </div>
 
-    <!-- Footer con información COMPLETA -->
-    <div class="footer-full">
-      <img src="logocova.jpg" alt="Covadonga" />
-      <h4>Hospitales y Centros de Diagnóstico Covadonga</h4>
-      <p><strong>📍 Córdoba:</strong> Av. 1 #1802, Centro · Tel: (271) 123 4567</p>
-      <p><strong>📍 Veracruz:</strong> Blvd. Adolfo Ruíz Cortines #235, Reforma · Tel: (229) 234 5678</p>
-      <p><strong>📍 Boca del Río:</strong> Paseo del Mar #42, Costa de Oro · Tel: (229) 345 6789</p>
-      <p><strong>📧 Email:</strong> contacto@hospitalcovadonga.com · <strong>🕒 Emergencias:</strong> 24 horas, los 365 días</p>
-      <p><strong>🛡️ Unidad de Ciberseguridad:</strong> ciberseguridad@covadonga.com · Línea ética: 800 123 4567</p>
-      <div class="small">Hospital Covadonga © 2026 · Conferencia de Ciberseguridad en Salud · Protegiendo tu información</div>
+    <!-- Tabs de contenido -->
+    <div class="content-tabs">
+      <div class="sec-head" style="margin-bottom:12px">Contenido</div>
+      <div class="ctabs-nav">
+        <button class="ctab on" onclick="swCtab(0)">Panorama</button>
+        <button class="ctab"    onclick="swCtab(1)">Mensajes</button>
+        <button class="ctab"    onclick="swCtab(2)">Practicas</button>
+        <button class="ctab"    onclick="swCtab(3)">Amenazas</button>
+        <button class="ctab"    onclick="swCtab(4)">Legal</button>
+      </div>
+
+      <!-- 0: PANORAMA GLOBAL -->
+      <div class="ctab-panel on" id="ctp0">
+        <div class="stats-grid">
+          <div class="stat">
+            <span class="stat-num">83%</span>
+            <span class="stat-lbl">de hospitales sufrieron un ciberataque en los ultimos 2 anos</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">$11M</span>
+            <span class="stat-lbl">costo promedio de una brecha de datos en salud en 2025</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">277</span>
+            <span class="stat-lbl">dias promedio para detectar y contener un incidente</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">1 de 3</span>
+            <span class="stat-lbl">ataques de ransomware apuntan al sector salud globalmente</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1: COMO RECONOCER MENSAJES -->
+      <div class="ctab-panel" id="ctp1">
+        <div class="phish-card">
+          <span class="tag-warn">Alerta: Phishing</span>
+          <h4>Como reconocer un mensaje falso</h4>
+          <p>Los atacantes suplantan hospitales, proveedores y autoridades de salud. Estas son las senales de advertencia mas comunes:</p>
+          <div class="phish-list">
+            <div class="phish-item"><div class="phish-dot"></div><span><b>Urgencia exagerada</b> &mdash; "Actua ahora o tu cuenta sera bloqueada". Las instituciones legitimas no crean presion de tiempo.</span></div>
+            <div class="phish-item"><div class="phish-dot"></div><span><b>Remitente extrano</b> &mdash; El correo dice venir de "IMSS" pero la direccion es algo como noreply@imss-salud.net. Revisa el dominio completo.</span></div>
+            <div class="phish-item"><div class="phish-dot"></div><span><b>Errores de redaccion</b> &mdash; Palabras mal escritas, faltas de ortografia o frases que no suenan naturales.</span></div>
+            <div class="phish-item"><div class="phish-dot"></div><span><b>Links sospechosos</b> &mdash; Pasa el cursor sobre cualquier boton sin hacer clic. Si la URL no corresponde al sitio oficial, no la abras.</span></div>
+            <div class="phish-item"><div class="phish-dot"></div><span><b>Solicitud de datos sensibles</b> &mdash; Ningun sistema legitimo te pedira contrasenas, numero de seguridad o datos bancarios por correo o WhatsApp.</span></div>
+            <div class="phish-item"><div class="phish-dot"></div><span><b>Archivos adjuntos inesperados</b> &mdash; .exe, .zip, .docm o PDFs que te piden "habilitar macros". No los abras.</span></div>
+          </div>
+        </div>
+        <div style="background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.15);border-radius:8px;padding:12px 14px;font-size:.73rem;color:var(--dim);line-height:1.6">
+          <strong style="color:var(--cyan)">Regla de oro:</strong> Ante la duda, NO hagas clic. Cierra el mensaje y contacta directamente al remitente por los canales oficiales del hospital.
+        </div>
+      </div>
+
+      <!-- 2: BUENAS PRACTICAS -->
+      <div class="ctab-panel" id="ctp2">
+        <div class="tips-list">
+          <div class="tip"><span class="tip-num">01</span><div class="tip-body"><h4>Autenticacion de dos factores</h4><p>Activa el 2FA en todos los sistemas clinicos y administrativos. Una contrasena sola no es suficiente para proteger accesos criticos.</p></div></div>
+          <div class="tip"><span class="tip-num">02</span><div class="tip-body"><h4>Actualizaciones constantes</h4><p>Mantener el software actualizado cierra vulnerabilidades que los atacantes explotan en cuestion de horas tras su descubrimiento.</p></div></div>
+          <div class="tip"><span class="tip-num">03</span><div class="tip-body"><h4>Copias de seguridad</h4><p>Realiza respaldos diarios de expedientes en ubicaciones aisladas de la red principal. Verifica que los respaldos sean recuperables.</p></div></div>
+          <div class="tip"><span class="tip-num">04</span><div class="tip-body"><h4>Capacitacion del personal</h4><p>El 90% de los incidentes comienzan con un error humano. Entrenar al personal en deteccion de phishing es la defensa mas efectiva.</p></div></div>
+          <div class="tip"><span class="tip-num">05</span><div class="tip-body"><h4>Segmentacion de red</h4><p>Separar la red de dispositivos medicos de la red administrativa limita el alcance de un posible ataque dentro del hospital.</p></div></div>
+          <div class="tip"><span class="tip-num">06</span><div class="tip-body"><h4>Control de accesos</h4><p>Cada empleado debe tener acceso unicamente a lo necesario para su funcion. Audita permisos periodicamente y revoca los inactivos.</p></div></div>
+        </div>
+      </div>
+
+      <!-- 3: AMENAZAS -->
+      <div class="ctab-panel" id="ctp3">
+        <div class="threats">
+          <div class="threat-item"><div class="ti-icon">&#x1F512;</div><div><h4>Ransomware hospitalario</h4><p>Software malicioso que cifra expedientes y sistemas clinicos exigiendo rescate economico. Puede paralizar operaciones completas y poner en riesgo a pacientes en estado critico.</p></div></div>
+          <div class="threat-item"><div class="ti-icon">&#x1F41F;</div><div><h4>Phishing dirigido</h4><p>Correos y mensajes fraudulentos que suplantan a proveedores o autoridades de salud para obtener credenciales de acceso al sistema del hospital.</p></div></div>
+          <div class="threat-item"><div class="ti-icon">&#x1FA7A;</div><div><h4>Vulnerabilidades en dispositivos medicos</h4><p>Equipos conectados como monitores, bombas de infusion e imagenologia frecuentemente carecen de actualizaciones y representan puntos de entrada para atacantes.</p></div></div>
+          <div class="threat-item"><div class="ti-icon">&#x1F4C1;</div><div><h4>Filtracion de datos de pacientes</h4><p>El robo de expedientes medicos tiene un valor en el mercado negro hasta 10 veces mayor que una tarjeta de credito, convirtiendo a los hospitales en blancos prioritarios.</p></div></div>
+        </div>
+      </div>
+
+      <!-- 4: MARCO LEGAL -->
+      <div class="ctab-panel" id="ctp4">
+        <div class="legal-grid">
+          <div class="lcard"><span class="lc-tag">Ley Federal</span><h4>LFPDPPP</h4><p>Regula el tratamiento de datos personales sensibles como el historial clinico de los pacientes.</p></div>
+          <div class="lcard"><span class="lc-tag">Norma Oficial</span><h4>NOM-004-SSA3</h4><p>Establece requisitos para el manejo del expediente clinico, incluyendo su resguardo en formato digital.</p></div>
+          <div class="lcard"><span class="lc-tag">Norma Oficial</span><h4>NOM-024-SSA3</h4><p>Define criterios para la instalacion y operacion de sistemas de informacion de registro electronico en salud.</p></div>
+          <div class="lcard"><span class="lc-tag">Codigo Penal</span><h4>Delitos Informaticos</h4><p>El CPF tipifica el acceso ilicito a sistemas informaticos con penas de hasta 9 anos de prision.</p></div>
+          <div class="lcard"><span class="lc-tag">Regulador</span><h4>INAI</h4><p>Supervisa el cumplimiento de la proteccion de datos y puede imponer sanciones economicas a instituciones.</p></div>
+          <div class="lcard"><span class="lc-tag">Estandar</span><h4>ISO 27001</h4><p>Estandar internacional de gestion de seguridad de la informacion, referencia clave para certificar controles.</p></div>
+        </div>
+      </div>
+
+    </div><!-- /content-tabs -->
+
+    <!-- Footer con logo (TU DISEÑO ORIGINAL) -->
+    <div class="footer-logo-section">
+      <img src="logocova.jpg" alt="Hospitales y Centros de Diagnostico Covadonga" class="footer-logo-img" />
+      <div class="footer-text">
+        Hospitales y Centros de Diagnostico Covadonga<br/>
+        Orizaba &middot; Cordoba &middot; Boca del Rio &middot; Veracruz<br/>
+        <span style="color:var(--dim2)">Hospital Covadonga &copy; 2026 &middot; Conferencia de Ciberseguridad en Salud</span>
+      </div>
     </div>
+
+  </div><!-- /dbody -->
+</div>
+
+<!-- MODAL -->
+<div id="modal" onclick="closeModal(event)">
+  <div class="mbox">
+    <button class="mcls" onclick="closeModal(null,true)">&#x2715;</button>
+    <img id="mImg" src="" alt="Flyer"/>
   </div>
 </div>
 
@@ -393,102 +728,172 @@
 // ── SUPABASE ─────────────────────────────────
 const SUPA_URL = 'https://ggurrwhyamgnzelakvuw.supabase.co';
 const SUPA_KEY = 'sb_publishable_Cvt0XmzzMjvhiJMo0h49-w_QlZ4vOA2';
-let sb;
-try { sb = supabase.createClient(SUPA_URL, SUPA_KEY); }
+let sb, ready = false;
+try { sb = supabase.createClient(SUPA_URL, SUPA_KEY); ready = true; }
 catch(e) { console.warn('Supabase error:', e); }
 
-// Función para mostrar mensajes
-function showMsg(id, txt, tipo) {
-  const el = document.getElementById(id);
-  if (el) {
-    el.textContent = txt;
-    el.className = 'msg ' + tipo;
-    setTimeout(() => {
-      if (el.className === 'msg ' + tipo) {
-        el.className = 'msg';
-        el.textContent = '';
-      }
-    }, 4000);
+let me = null;
+
+// ── COUNTDOWN ────────────────────────────────
+function updateCountdown() {
+  const target = new Date('2026-04-06T09:00:00-06:00').getTime();
+  const now = Date.now();
+  const diff = target - now;
+  if (diff <= 0) {
+    document.getElementById('cdD').textContent='00';
+    document.getElementById('cdH').textContent='00';
+    document.getElementById('cdM').textContent='00';
+    return;
   }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  document.getElementById('cdD').textContent = String(d).padStart(2,'0');
+  document.getElementById('cdH').textContent = String(h).padStart(2,'0');
+  document.getElementById('cdM').textContent = String(m).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 30000);
+
+// ── TABS LOGIN ───────────────────────────────
+function swTab(t) {
+  document.querySelectorAll('.tab').forEach((b,i)=>
+    b.classList.toggle('on',(i===0&&t==='login')||(i===1&&t==='reg')));
+  document.getElementById('fpLogin').classList.toggle('on', t==='login');
+  document.getElementById('fpReg').classList.toggle('on',   t==='reg');
+  clrMsg('lMsg'); clrMsg('rMsg');
 }
 
-// Función para registrar usuario (solo nombre, área, estado)
-async function doRegistro() {
-  const nombre = document.getElementById('regNombre').value.trim();
-  const area = document.getElementById('regArea').value.trim();
-  const estado = document.getElementById('regEstado').value;
+// ── CONTENT TABS ─────────────────────────────
+function swCtab(idx) {
+  document.querySelectorAll('.ctab').forEach((b,i) => b.classList.toggle('on', i===idx));
+  document.querySelectorAll('.ctab-panel').forEach((p,i) => p.classList.toggle('on', i===idx));
+}
+
+// ── MENSAJES ─────────────────────────────────
+function showMsg(id,txt,tipo){
+  const el=document.getElementById(id);
+  el.textContent=txt; el.className='msg '+tipo;
+  setTimeout(() => { if(el.className === 'msg '+tipo) { el.className='msg'; el.textContent=''; } }, 4000);
+}
+function clrMsg(id){
+  const el=document.getElementById(id);
+  el.className='msg'; el.textContent='';
+}
+
+// ── REGISTRO (con Área y Estado) ─────────────────────────────────
+async function doReg(){
+  if(!ready){showMsg('rMsg','Error de conexion','err');return;}
+  const nom=document.getElementById('rNom').value.trim();
+  const area=document.getElementById('rArea').value.trim();
+  const estado=document.getElementById('rEstado').value;
+  clrMsg('rMsg');
   
-  showMsg('regMsg', '', '');
+  if(!nom){showMsg('rMsg','Ingresa tu nombre completo','err');return;}
+  if(nom.length<3){showMsg('rMsg','Nombre demasiado corto','err');return;}
+  if(!area){showMsg('rMsg','Ingresa tu área','err');return;}
+  if(!estado){showMsg('rMsg','Selecciona un estado','err');return;}
   
-  if (!nombre) {
-    showMsg('regMsg', 'Por favor ingresa tu nombre completo', 'err');
-    return;
-  }
-  if (!area) {
-    showMsg('regMsg', 'Por favor ingresa tu área', 'err');
-    return;
-  }
-  if (!estado) {
-    showMsg('regMsg', 'Por favor selecciona un estado', 'err');
-    return;
-  }
-  
-  if (nombre.length < 3) {
-    showMsg('regMsg', 'El nombre debe tener al menos 3 caracteres', 'err');
-    return;
-  }
-  
-  const btn = document.querySelector('.btn-reg');
-  const originalText = btn.textContent;
-  btn.disabled = true;
-  btn.textContent = 'Registrando...';
-  
-  try {
-    // Verificar si ya existe
-    const { data: existe } = await sb.from('usuarios').select('id').eq('nombre_completo', nombre).maybeSingle();
+  const btn=document.getElementById('rBtn');
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span> Registrando...';
+  try{
+    const{data:existe}=await sb.from('usuarios').select('id').eq('nombre_completo',nom).maybeSingle();
+    if(existe){showMsg('rMsg','Ya existe un usuario con ese nombre','err');btn.disabled=false;btn.textContent='REGISTRARME';return;}
     
-    if (existe) {
-      showMsg('regMsg', ' ¡Ya estás registrado! Bienvenido de nuevo', 'ok');
-      // Limpiar campos
-      document.getElementById('regNombre').value = '';
-      document.getElementById('regArea').value = '';
-      document.getElementById('regEstado').value = '';
-      btn.disabled = false;
-      btn.textContent = originalText;
-      return;
-    }
-    
-    // Insertar nuevo usuario
-    const { error } = await sb.from('usuarios').insert([{
-      nombre_completo: nombre,
-      area: area,
-      estado: estado,
-      hora_registro: new Date().toISOString()
+    const{error}=await sb.from('usuarios').insert([{
+      nombre_completo:nom,
+      area:area,
+      estado:estado,
+      hora_registro:new Date().toISOString()
     }]);
-    
-    if (error) throw error;
-    
-    showMsg('regMsg', ' ¡Registro exitoso! Bienvenido a la conferencia', 'ok');
-    
-    // Limpiar campos
-    document.getElementById('regNombre').value = '';
-    document.getElementById('regArea').value = '';
-    document.getElementById('regEstado').value = '';
-    
-  } catch (e) {
-    console.error(e);
-    showMsg('regMsg', ' Error al registrar: ' + (e.message || 'Intenta de nuevo'), 'err');
+    if(error)throw error;
+    showMsg('rMsg','Registro exitoso. Ya puedes iniciar sesion.','ok');
+    document.getElementById('rNom').value='';
+    document.getElementById('rArea').value='';
+    document.getElementById('rEstado').value='';
+    setTimeout(()=>swTab('login'),2000);
+  }catch(e){
+    showMsg('rMsg',e.message||'Error al registrar.','err');
   }
-  
-  btn.disabled = false;
-  btn.textContent = originalText;
+  btn.disabled=false; btn.textContent='REGISTRARME';
 }
 
-// Permitir Enter en los campos
-document.querySelectorAll('#regNombre, #regArea, #regEstado').forEach(input => {
-  input.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') doRegistro();
-  });
+// ── LOGIN (ya NO pide contraseña) ─────────────────────────────────────
+async function doLogin(){
+  if(!ready){showMsg('lMsg','Error de conexion','err');return;}
+  const nom=document.getElementById('lNom').value.trim();
+  clrMsg('lMsg');
+  if(!nom){showMsg('lMsg','Ingresa tu nombre completo','err');return;}
+  
+  const btn=document.getElementById('lBtn');
+  btn.disabled=true; btn.innerHTML='<span class="spin"></span> Verificando...';
+  try{
+    const{data,error}=await sb.from('usuarios').select('id,nombre_completo,hora_registro,area,estado')
+      .eq('nombre_completo',nom).maybeSingle();
+    if(error)throw error;
+    if(!data){showMsg('lMsg','Usuario no encontrado. Debes registrarte primero','err');btn.disabled=false;btn.textContent='ENTRAR';return;}
+    
+    await sb.from('usuarios').update({ultimo_acceso:new Date().toISOString()}).eq('id',data.id);
+    me=data; enterDash();
+  }catch(e){
+    showMsg('lMsg',e.message||'Error al conectar.','err');
+  }
+  btn.disabled=false; btn.textContent='ENTRAR';
+}
+
+// ── DASHBOARD ─────────────────────────────────
+function enterDash(){
+  const nom=me.nombre_completo;
+  const av=nom.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+  document.getElementById('dAv').textContent=av;
+  document.getElementById('dNom').textContent=nom;
+  document.getElementById('dWel').textContent='Hola, '+nom.split(' ')[0];
+  document.getElementById('cNom').textContent=nom;
+  document.getElementById('cFecha').textContent=fmtDate(me.hora_registro);
+  document.getElementById('cArea').textContent=me.area || '—';
+  document.getElementById('cEstado').textContent=me.estado || '—';
+  document.getElementById('pgLogin').classList.remove('on');
+  document.getElementById('pgDash').classList.add('on');
+  window.scrollTo(0,0);
+}
+
+function doOut(){
+  me=null;
+  document.getElementById('pgDash').classList.remove('on');
+  document.getElementById('pgLogin').classList.add('on');
+  document.getElementById('lNom').value='';
+  clrMsg('lMsg');
+  window.scrollTo(0,0);
+}
+
+// ── MODAL ─────────────────────────────────────
+function openModal(file){
+  document.getElementById('mImg').src=file;
+  document.getElementById('modal').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeModal(e,force){
+  if(force||(e&&e.target===document.getElementById('modal'))){
+    document.getElementById('modal').classList.remove('on');
+    document.getElementById('mImg').src='';
+    document.body.style.overflow='';
+  }
+}
+
+// ── FECHA ─────────────────────────────────────
+function fmtDate(s){
+  if(!s)return'--';
+  try{return new Date(s).toLocaleString('es-MX',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});}
+  catch{return s;}
+}
+
+// ── TECLAS ────────────────────────────────────
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    if(document.getElementById('fpLogin').classList.contains('on'))doLogin();
+    else doReg();
+  }
+  if(e.key==='Escape')closeModal(null,true);
 });
 </script>
 </body>
