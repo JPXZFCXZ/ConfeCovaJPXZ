@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Covadonga · Ciberseguridad 2025</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ================================================
+       VARIABLES
+    ================================================ */
+    :root {
+      --az1: #050e1f;
+      --az2: #0b1f47;
+      --az3: #1141a0;
+      --az4: #1e5fd4;
+      --az5: #2979ff;
+      --glow: #4d9fff;
+      --cyan: #00d4ff;
+      --wht: #ffffff;
+      --g1:  #c8d8f0;
+      --g2:  #7a92bb;
+      --g3:  #3d5278;
+      --err: #ff4d6d;
+      --ok:  #00e5a0;
+      --r: 14px;
+      --t: .3s cubic-bezier(.4,0,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--az1);
+      color: var(--wht);
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
+
+    /* ================================================
+       FONDO
+    ================================================ */
+    #bg {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 15% 5%,  rgba(17,65,160,.4) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 45% at 85% 85%, rgba(41,121,255,.18) 0%, transparent 55%),
+        #050e1f;
+      overflow: hidden;
+    }
+    #bg::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(41,121,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(41,121,255,.06) 1px, transparent 1px);
+      background-size: 44px 44px;
+      animation: gridScroll 20s linear infinite;
+    }
+    @keyframes gridScroll { to { transform: translateY(44px); } }
+
+    .orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(90px); pointer-events: none;
+      animation: orbDrift 14s ease-in-out infinite alternate;
+    }
+    .o1 { width:380px;height:380px;background:rgba(17,65,160,.38);top:-80px;left:-80px;animation-delay:0s }
+    .o2 { width:260px;height:260px;background:rgba(0,212,255,.13);bottom:-40px;right:-40px;animation-delay:-7s }
+    .o3 { width:180px;height:180px;background:rgba(41,121,255,.18);top:45%;left:65%;animation-delay:-3.5s }
+    @keyframes orbDrift {
+      0%   { transform:translate(0,0) scale(1) }
+      100% { transform:translate(25px,-25px) scale(1.07) }
+    }
+
+    /* ================================================
+       PÁGINAS
+    ================================================ */
+    .pg { position:relative;z-index:1;min-height:100dvh;display:none;flex-direction:column }
+    .pg.on { display:flex }
+
+    /* ================================================
+       TOPBAR
+    ================================================ */
+    .topbar {
+      width:100%;background:rgba(255,255,255,.96);
+      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      padding:10px 18px;
+      display:flex;align-items:center;justify-content:space-between;
+      box-shadow:0 2px 18px rgba(5,14,31,.22);
+      position:sticky;top:0;z-index:200;
+      min-height:60px;
+    }
+
+    /* Logo SVG */
+    .logo { height:40px;width:auto;flex-shrink:0 }
+
+    .topbar-label {
+      font-family:'Rajdhani',sans-serif;font-weight:700;
+      font-size:.78rem;color:var(--az3);line-height:1.25;
+      text-align:right;letter-spacing:.04em;
+    }
+    @media(max-width:380px){ .topbar-label { display:none } }
+
+    .user-pill {
+      display:flex;align-items:center;gap:7px;
+      background:var(--az3);color:var(--wht);
+      border-radius:30px;padding:5px 12px 5px 6px;
+      font-size:.78rem;font-weight:600;
+    }
+    .u-av {
+      width:26px;height:26px;border-radius:50%;
+      background:var(--cyan);color:var(--az1);
+      font-size:.7rem;font-weight:700;
+      display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    }
+    .u-name { max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap }
+    @media(min-width:420px){ .u-name { max-width:170px } }
+
+    /* ================================================
+       LOGIN PAGE
+    ================================================ */
+    #pgLogin { justify-content:center;align-items:center;padding:20px 16px 40px }
+
+    .login-wrap { width:100%;max-width:400px }
+
+    /* Hero encabezado */
+    .lhero {
+      text-align:center;margin-bottom:28px;
+      animation:fadeUp .55s ease both;
+    }
+    .lhero .badge {
+      display:inline-flex;align-items:center;gap:5px;
+      background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.28);
+      color:var(--cyan);font-size:.68rem;
+      font-family:'Barlow Condensed',sans-serif;
+      letter-spacing:.18em;text-transform:uppercase;
+      padding:5px 14px;border-radius:20px;margin-bottom:14px;
+    }
+    .lhero h1 {
+      font-family:'Rajdhani',sans-serif;
+      font-size:clamp(1.7rem,6vw,2.3rem);
+      font-weight:700;line-height:1.05;margin-bottom:7px;
+    }
+    .lhero h1 em {
+      font-style:normal;
+      background:linear-gradient(120deg,var(--az5),var(--cyan));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    .lhero p { color:var(--g2);font-size:.86rem;font-weight:300 }
+
+    /* Tabs */
+    .tabs {
+      display:flex;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      border-bottom:none;
+      border-radius:var(--r) var(--r) 0 0;
+      overflow:hidden;
+      animation:fadeUp .55s .08s ease both;
+    }
+    .tab {
+      flex:1;padding:13px;background:transparent;border:none;
+      color:var(--g2);font-family:'Barlow',sans-serif;
+      font-size:.86rem;font-weight:600;cursor:pointer;
+      transition:var(--t);letter-spacing:.03em;
+    }
+    .tab.on {
+      background:rgba(41,121,255,.14);color:var(--wht);
+      border-bottom:2px solid var(--az5);
+    }
+
+    /* Card */
+    .fcard {
+      background:rgba(255,255,255,.035);
+      backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+      border:1px solid rgba(255,255,255,.08);border-top:none;
+      border-radius:0 0 var(--r) var(--r);
+      padding:24px 20px 28px;
+      animation:fadeUp .55s .16s ease both;
+    }
+
+    .fpanel { display:none;flex-direction:column;gap:14px }
+    .fpanel.on { display:flex }
+
+    .field { display:flex;flex-direction:column;gap:5px }
+    label { font-size:.72rem;font-weight:600;color:var(--g2);letter-spacing:.07em;text-transform:uppercase }
+
+    .iw { position:relative }
+    .iw svg {
+      position:absolute;left:13px;top:50%;transform:translateY(-50%);
+      width:15px;height:15px;color:var(--g3);pointer-events:none;flex-shrink:0;
+    }
+    input[type=text], input[type=password] {
+      width:100%;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:9px;color:var(--wht);
+      font-family:'Barlow',sans-serif;font-size:.95rem;
+      padding:13px 13px 13px 40px;outline:none;
+      transition:var(--t);-webkit-appearance:none;
+    }
+    input::placeholder { color:rgba(176,189,216,.38) }
+    input:focus {
+      border-color:var(--az5);
+      background:rgba(41,121,255,.09);
+      box-shadow:0 0 0 3px rgba(41,121,255,.18);
+    }
+
+    .btn {
+      width:100%;padding:14px;
+      background:linear-gradient(135deg,var(--az3),var(--az5));
+      border:none;border-radius:9px;
+      color:var(--wht);font-family:'Rajdhani',sans-serif;
+      font-size:1rem;font-weight:700;letter-spacing:.09em;
+      cursor:pointer;transition:var(--t);position:relative;overflow:hidden;
+      margin-top:2px;
+    }
+    .btn::after {
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(135deg,rgba(255,255,255,.12),transparent);
+      opacity:0;transition:var(--t);
+    }
+    .btn:hover::after { opacity:1 }
+    .btn:hover { transform:translateY(-1px);box-shadow:0 8px 24px rgba(41,121,255,.38) }
+    .btn:active { transform:translateY(0) }
+    .btn:disabled { opacity:.55;cursor:not-allowed;transform:none }
+
+    .msg {
+      display:none;align-items:center;gap:7px;
+      padding:10px 13px;border-radius:8px;
+      font-size:.82rem;font-weight:500;line-height:1.4;
+    }
+    .msg.err  { display:flex;background:rgba(255,77,109,.13);border:1px solid rgba(255,77,109,.28);color:#ff8fa3 }
+    .msg.ok   { display:flex;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.28);color:var(--ok) }
+
+    .foot-note {
+      text-align:center;margin-top:16px;
+      font-size:.72rem;color:rgba(176,189,216,.4);
+      animation:fadeUp .55s .24s ease both;
+    }
+
+    /* ================================================
+       DASHBOARD PAGE
+    ================================================ */
+    #pgDash { flex-direction:column }
+
+    .dbody {
+      flex:1;padding:22px 16px 50px;
+      max-width:860px;width:100%;margin:0 auto;
+      display:flex;flex-direction:column;gap:22px;
+    }
+    @media(min-width:600px){ .dbody { padding:28px 24px 60px } }
+
+    /* Hero bienvenida */
+    .dhero {
+      background:linear-gradient(130deg,rgba(17,65,160,.38),rgba(41,121,255,.18));
+      border:1px solid rgba(41,121,255,.22);
+      border-radius:16px;padding:24px 20px;
+      position:relative;overflow:hidden;
+      animation:fadeUp .45s ease both;
+    }
+    .dhero::after {
+      content:'';position:absolute;
+      top:-50px;right:-50px;width:200px;height:200px;border-radius:50%;
+      background:radial-gradient(circle,rgba(0,212,255,.13),transparent 70%);
+      pointer-events:none;
+    }
+    .dlabel {
+      font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+      color:var(--cyan);font-family:'Barlow Condensed',sans-serif;margin-bottom:7px;
+    }
+    .dhero h2 {
+      font-family:'Rajdhani',sans-serif;
+      font-size:clamp(1.3rem,4.5vw,1.8rem);
+      font-weight:700;line-height:1.15;margin-bottom:5px;
+    }
+    .dhero p { color:var(--g2);font-size:.84rem;font-weight:300 }
+
+    /* Chips info */
+    .chips { display:flex;flex-wrap:wrap;gap:10px;animation:fadeUp .45s .08s ease both }
+    .chip {
+      display:flex;align-items:center;gap:7px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:30px;padding:7px 14px;
+      font-size:.77rem;color:var(--g2);
+    }
+    .chip b { color:var(--wht);font-weight:600 }
+
+    /* Sección titulo */
+    .stitle {
+      font-family:'Rajdhani',sans-serif;font-size:1rem;
+      font-weight:700;letter-spacing:.06em;
+      display:flex;align-items:center;gap:10px;
+      animation:fadeUp .45s .12s ease both;
+    }
+    .stitle::after {
+      content:'';flex:1;height:1px;
+      background:linear-gradient(90deg,rgba(41,121,255,.38),transparent);
+    }
+
+    /* Flyers */
+    .flyers {
+      display:grid;grid-template-columns:1fr 1fr;gap:14px;
+      animation:fadeUp .45s .16s ease both;
+    }
+    @media(max-width:380px){ .flyers { grid-template-columns:1fr } }
+
+    .fc {
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:13px;overflow:hidden;
+      cursor:pointer;transition:var(--t);
+    }
+    .fc:hover {
+      border-color:rgba(41,121,255,.38);
+      transform:translateY(-3px);
+      box-shadow:0 12px 32px rgba(41,121,255,.18);
+    }
+    .fc:active { transform:translateY(0) }
+
+    .fthumb {
+      aspect-ratio:4/3;width:100%;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,rgba(17,65,160,.3),rgba(5,14,31,.55));
+      position:relative;overflow:hidden;
+    }
+    .fthumb img { width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease }
+    .fc:hover .fthumb img { transform:scale(1.05) }
+    .fph { display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;width:100%;height:100%;padding:12px }
+    .fph svg { width:40px;height:40px;color:rgba(77,159,255,.4) }
+    .fph p { font-size:.72rem;color:var(--g3);text-align:center }
+
+    .fov {
+      position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(5,14,31,.7) 0%,transparent 55%);
+      display:flex;align-items:flex-end;padding:12px;
+      opacity:0;transition:var(--t);
+    }
+    .fc:hover .fov { opacity:1 }
+    .fov-btn {
+      background:var(--az5);color:var(--wht);
+      border:none;border-radius:6px;
+      padding:7px 14px;font-size:.75rem;font-weight:600;
+      font-family:'Barlow',sans-serif;pointer-events:none;
+    }
+
+    .finfo { padding:13px 14px }
+    .finfo h3 { font-family:'Rajdhani',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:3px }
+    .finfo p { font-size:.74rem;color:var(--g2) }
+
+    /* Temas cyber */
+    .cgrid {
+      display:grid;gap:11px;
+      grid-template-columns:1fr 1fr;
+      animation:fadeUp .45s .2s ease both;
+    }
+    @media(min-width:600px){ .cgrid { grid-template-columns:repeat(3,1fr) } }
+
+    .cc {
+      background:rgba(255,255,255,.028);
+      border:1px solid rgba(255,255,255,.065);
+      border-radius:11px;padding:16px 14px;transition:var(--t);
+    }
+    .cc:hover { background:rgba(41,121,255,.08);border-color:rgba(41,121,255,.2) }
+    .cc .ico { font-size:1.4rem;margin-bottom:8px }
+    .cc h4 { font-family:'Rajdhani',sans-serif;font-size:.9rem;font-weight:700;color:var(--glow);margin-bottom:4px }
+    .cc p  { font-size:.74rem;color:var(--g2);line-height:1.5 }
+
+    /* Logout */
+    .btn-out {
+      background:rgba(255,77,109,.1);
+      border:1px solid rgba(255,77,109,.22);
+      color:#ff8fa3;border-radius:8px;
+      padding:7px 14px;font-family:'Barlow',sans-serif;
+      font-size:.78rem;font-weight:600;cursor:pointer;
+      transition:var(--t);white-space:nowrap;
+    }
+    .btn-out:hover { background:rgba(255,77,109,.2);border-color:rgba(255,77,109,.45) }
+
+    /* ================================================
+       MODAL
+    ================================================ */
+    #modal {
+      position:fixed;inset:0;z-index:999;
+      background:rgba(5,14,31,.93);
+      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+      display:none;align-items:center;justify-content:center;
+      padding:16px;
+    }
+    #modal.on { display:flex;animation:fadeIn .22s ease }
+    .mbox {
+      position:relative;max-width:88vw;max-height:88dvh;
+      border-radius:13px;overflow:hidden;
+      box-shadow:0 32px 80px rgba(0,0,0,.7);
+      animation:scaleIn .28s cubic-bezier(.4,0,.2,1) both;
+    }
+    .mbox img { display:block;max-width:100%;max-height:86dvh;object-fit:contain }
+    .mcls {
+      position:absolute;top:10px;right:10px;
+      background:rgba(5,14,31,.8);border:1px solid rgba(255,255,255,.15);
+      border-radius:50%;width:34px;height:34px;
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;color:var(--wht);font-size:1rem;
+      transition:var(--t);
+    }
+    .mcls:hover { background:rgba(255,77,109,.3) }
+
+    /* ================================================
+       SETUP BANNER (instrucciones Supabase)
+    ================================================ */
+    #setupBanner {
+      position:fixed;bottom:0;left:0;right:0;z-index:500;
+      background:linear-gradient(135deg,#1a0a00,#3d1a00);
+      border-top:2px solid #ff8c00;
+      padding:12px 16px;
+      font-size:.78rem;color:#ffd080;
+      display:flex;align-items:center;gap:10px;
+      flex-wrap:wrap;
+    }
+    #setupBanner b { color:#ffa040 }
+    #setupBanner a { color:#ffcc60;text-decoration:underline }
+    #dismissBanner {
+      margin-left:auto;background:rgba(255,140,0,.2);
+      border:1px solid rgba(255,140,0,.4);color:#ffd080;
+      border-radius:6px;padding:4px 10px;
+      font-size:.74rem;cursor:pointer;white-space:nowrap;
+    }
+
+    /* ================================================
+       ANIMACIONES
+    ================================================ */
+    @keyframes fadeUp  { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
+    @keyframes fadeIn  { from{opacity:0} to{opacity:1} }
+    @keyframes scaleIn { from{opacity:0;transform:scale(.92)} to{opacity:1;transform:scale(1)} }
+    @keyframes spin    { to{transform:rotate(360deg)} }
+
+    .spin {
+      display:inline-block;width:16px;height:16px;
+      border:2px solid rgba(255,255,255,.3);
+      border-top-color:var(--wht);border-radius:50%;
+      animation:spin .7s linear infinite;vertical-align:middle;
+    }
+
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-thumb{background:rgba(41,121,255,.28);border-radius:3px}
+  </style>
+</head>
+<body>
+
+<!-- FONDO -->
+<div id="bg">
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
+</div>
+
+<!-- ================================================
+     LOGIN
+================================================ -->
+<div id="pgLogin" class="pg on">
+
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:10px">
+      <!-- Logo inline SVG -->
+      <svg class="logo" viewBox="0 0 210 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="25" cy="25" r="23" fill="#1141a0"/>
+        <path d="M25 9C17 9 11 15.5 11 25s6 16 14 16" stroke="#00d4ff" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+        <path d="M25 9C33 9 39 15.5 39 25s-6 16-14 16" stroke="white" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+        <circle cx="25" cy="25" r="4.5" fill="white"/>
+        <text x="54" y="21" font-family="Rajdhani,sans-serif" font-size="16" font-weight="700" fill="#1141a0">COVADONGA</text>
+        <text x="55" y="35" font-family="Barlow,sans-serif" font-size="7.5" fill="#4a6899" letter-spacing="0.8">HOSPITALES &amp; CENTROS DE DIAGNÓSTICO</text>
+      </svg>
+    </div>
+    <div class="topbar-label">CONFERENCIA<br/>CIBERSEGURIDAD 2025</div>
+  </div>
+
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:24px 16px">
+    <div class="login-wrap">
+
+      <div class="lhero">
+        <div class="badge">🔐 Acceso Seguro · 2025</div>
+        <h1>Hospital<br/><em>Covadonga</em></h1>
+        <p>Conferencia de Ciberseguridad en Salud</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab on" onclick="swTab('login')">Iniciar sesión</button>
+        <button class="tab"    onclick="swTab('reg')">Registrarse</button>
+      </div>
+
+      <div class="fcard">
+
+        <!-- LOGIN -->
+        <div id="fpLogin" class="fpanel on">
+          <div class="field">
+            <label>Nombre completo</label>
+            <div class="iw">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              <input type="text" id="lNom" placeholder="Tu nombre completo" autocomplete="name"/>
+            </div>
+          </div>
+          <div class="field">
+            <label>Contraseña</label>
+            <div class="iw">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              <input type="password" id="lPass" placeholder="••••••••" autocomplete="current-password"/>
+            </div>
+          </div>
+          <div id="lMsg" class="msg"></div>
+          <button class="btn" id="lBtn" onclick="doLogin()">ENTRAR</button>
+        </div>
+
+        <!-- REGISTRO -->
+        <div id="fpReg" class="fpanel">
+          <div class="field">
+            <label>Nombre completo</label>
+            <div class="iw">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+              <input type="text" id="rNom" placeholder="Tu nombre completo" autocomplete="name"/>
+            </div>
+          </div>
+          <div class="field">
+            <label>Contraseña</label>
+            <div class="iw">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              <input type="password" id="rPass" placeholder="Mín. 6 caracteres" autocomplete="new-password"/>
+            </div>
+          </div>
+          <div id="rMsg" class="msg"></div>
+          <button class="btn" id="rBtn" onclick="doReg()">REGISTRARME</button>
+        </div>
+
+      </div><!-- /fcard -->
+
+      <p class="foot-note">Hospital Covadonga © 2025 · Datos cifrados con Supabase</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ================================================
+     DASHBOARD
+================================================ -->
+<div id="pgDash" class="pg">
+
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:10px">
+      <svg class="logo" viewBox="0 0 210 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="25" cy="25" r="23" fill="#1141a0"/>
+        <path d="M25 9C17 9 11 15.5 11 25s6 16 14 16" stroke="#00d4ff" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+        <path d="M25 9C33 9 39 15.5 39 25s-6 16-14 16" stroke="white" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+        <circle cx="25" cy="25" r="4.5" fill="white"/>
+        <text x="54" y="21" font-family="Rajdhani,sans-serif" font-size="16" font-weight="700" fill="#1141a0">COVADONGA</text>
+        <text x="55" y="35" font-family="Barlow,sans-serif" font-size="7.5" fill="#4a6899" letter-spacing="0.8">HOSPITALES &amp; CENTROS DE DIAGNÓSTICO</text>
+      </svg>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="user-pill">
+        <div class="u-av" id="dAv">U</div>
+        <span class="u-name" id="dNom">Usuario</span>
+      </div>
+      <button class="btn-out" onclick="doOut()">Salir</button>
+    </div>
+  </div>
+
+  <div class="dbody">
+
+    <!-- Hero -->
+    <div class="dhero">
+      <div class="dlabel">🏥 Conferencia 2025</div>
+      <h2 id="dWel">Bienvenido al sistema</h2>
+      <p>Plataforma de acceso · Conferencia de Ciberseguridad en Salud · Hospital Covadonga</p>
+    </div>
+
+    <!-- Chips -->
+    <div class="chips">
+      <div class="chip">👤 Usuario: <b id="cNom">—</b></div>
+      <div class="chip">🕐 Registro: <b id="cFecha">—</b></div>
+    </div>
+
+    <!-- Flyers -->
+    <div>
+      <div class="stitle">📋 Material de la Conferencia</div>
+      <div style="height:12px"></div>
+      <div class="flyers">
+
+        <div class="fc" onclick="openModal('flyer1.jpg','Flyer 1 – Programa general')">
+          <div class="fthumb">
+            <!-- Si tienes la imagen en el repo, cambia src -->
+            <div class="fph" id="ft1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              <p>Toca para ver el flyer</p>
+            </div>
+            <div class="fov"><div class="fov-btn">Ver imagen</div></div>
+          </div>
+          <div class="finfo">
+            <h3>Flyer 1</h3>
+            <p>Programa general del evento</p>
+          </div>
+        </div>
+
+        <div class="fc" onclick="openModal('flyer2.jpg','Flyer 2 – Agenda y ponentes')">
+          <div class="fthumb">
+            <div class="fph" id="ft2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <p>Toca para ver el flyer</p>
+            </div>
+            <div class="fov"><div class="fov-btn">Ver imagen</div></div>
+          </div>
+          <div class="finfo">
+            <h3>Flyer 2</h3>
+            <p>Agenda y ponentes</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Temas -->
+    <div>
+      <div class="stitle">🛡️ Temas de la Conferencia</div>
+      <div style="height:12px"></div>
+      <div class="cgrid">
+        <div class="cc"><div class="ico">🔐</div><h4>Protección de Datos</h4><p>Normativas y mejores prácticas para expedientes médicos digitales.</p></div>
+        <div class="cc"><div class="ico">🌐</div><h4>Redes Hospitalarias</h4><p>Seguridad, segmentación y monitoreo en entornos clínicos.</p></div>
+        <div class="cc"><div class="ico">⚠️</div><h4>Amenazas Actuales</h4><p>Ransomware y ataques dirigidos a instituciones de salud en México.</p></div>
+        <div class="cc"><div class="ico">📱</div><h4>Dispositivos Médicos</h4><p>Vulnerabilidades en IoMT y protocolos para equipos conectados.</p></div>
+        <div class="cc"><div class="ico">📋</div><h4>Cumplimiento Legal</h4><p>LFPDPPP, NOM-004 y marcos regulatorios del sector salud.</p></div>
+        <div class="cc"><div class="ico">🚨</div><h4>Respuesta a Incidentes</h4><p>Recuperación y continuidad del negocio ante ciberataques.</p></div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /pgDash -->
+
+
+<!-- MODAL -->
+<div id="modal" onclick="closeModal(event)">
+  <div class="mbox">
+    <button class="mcls" onclick="closeModal(null,true)">✕</button>
+    <img id="mImg" src="" alt=""/>
+  </div>
+</div>
+
+
+<!-- BANNER de configuración (desaparece tras configurar) -->
+<div id="setupBanner">
+  ⚠️ <b>Configura Supabase:</b> abre <code>index.html</code> y reemplaza
+  <code>TU_URL</code> y <code>TU_ANON_KEY</code> con los datos de tu proyecto.
+  <a href="#" onclick="document.getElementById('setupBanner').remove();return false">Ver instrucciones en README</a>
+  <button id="dismissBanner" onclick="document.getElementById('setupBanner').remove()">Entendido</button>
+</div>
+
+
+<!-- ================================================
+     SUPABASE SDK
+================================================ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+/* ================================================
+   ⚙️  CONFIGURACIÓN — CAMBIA ESTOS DOS VALORES
+   Obtén estos datos en: supabase.com → tu proyecto → Settings → API
+================================================ */
+const SUPA_URL = 'TU_URL';          // ej: https://xyzxyz.supabase.co
+const SUPA_KEY = 'TU_ANON_KEY';     // empieza con "eyJ..."
+
+// Rutas de tus flyers (ponlos en la misma carpeta del HTML en GitHub)
+const FLYERS = {
+  'flyer1.jpg': 'flyer1.jpg',
+  'flyer2.jpg': 'flyer2.jpg'
+};
+
+/* ================================================
+   INIT SUPABASE
+================================================ */
+let sb, ready = false;
+
+try {
+  sb = supabase.createClient(SUPA_URL, SUPA_KEY);
+  // Ocultar banner si ya está configurado
+  if (SUPA_URL !== 'TU_URL') {
+    const b = document.getElementById('setupBanner');
+    if (b) b.remove();
+    ready = true;
+  }
+} catch(e) {
+  console.warn('Supabase no configurado aún');
+}
+
+/* ================================================
+   ESTADO
+================================================ */
+let me = null;
+
+/* ================================================
+   TABS
+================================================ */
+function swTab(t) {
+  document.querySelectorAll('.tab').forEach((b,i)=> b.classList.toggle('on',(i===0&&t==='login')||(i===1&&t==='reg')));
+  document.getElementById('fpLogin').classList.toggle('on', t==='login');
+  document.getElementById('fpReg').classList.toggle('on',   t==='reg');
+  clrMsg('lMsg'); clrMsg('rMsg');
+}
+
+/* ================================================
+   MENSAJES
+================================================ */
+function showMsg(id, txt, tipo) {
+  const el = document.getElementById(id);
+  el.textContent = txt; el.className = 'msg ' + tipo;
+}
+function clrMsg(id) {
+  const el = document.getElementById(id);
+  el.className = 'msg'; el.textContent = '';
+}
+
+/* ================================================
+   HASH SIMPLE (sin bcrypt en browser — usamos SHA-256)
+   Supabase guarda el hash, nunca la clave en claro.
+================================================ */
+async function hashPass(pass) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pass));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+/* ================================================
+   REGISTRO
+================================================ */
+async function doReg() {
+  if (!ready) { showMsg('rMsg','Configura Supabase primero (ver README)','err'); return; }
+  const nom  = document.getElementById('rNom').value.trim();
+  const pass = document.getElementById('rPass').value;
+  clrMsg('rMsg');
+
+  if (!nom || !pass)      { showMsg('rMsg','Completa todos los campos','err'); return; }
+  if (nom.length < 3)     { showMsg('rMsg','El nombre debe tener al menos 3 caracteres','err'); return; }
+  if (pass.length < 6)    { showMsg('rMsg','La contraseña debe tener al menos 6 caracteres','err'); return; }
+
+  const btn = document.getElementById('rBtn');
+  btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Registrando…';
+
+  try {
+    // Verificar si ya existe
+    const { data: existe } = await sb.from('usuarios')
+      .select('id').eq('nombre_completo', nom).maybeSingle();
+
+    if (existe) {
+      showMsg('rMsg','Ya existe un usuario con ese nombre','err');
+      btn.disabled = false; btn.textContent = 'REGISTRARME'; return;
+    }
+
+    const hash = await hashPass(pass);
+    const { error } = await sb.from('usuarios').insert([{
+      nombre_completo: nom,
+      contrasena: hash,
+      hora_registro: new Date().toISOString()
+    }]);
+
+    if (error) throw error;
+
+    showMsg('rMsg','✓ ¡Registrado! Ya puedes iniciar sesión','ok');
+    document.getElementById('rNom').value = '';
+    document.getElementById('rPass').value = '';
+    setTimeout(() => swTab('login'), 2000);
+  } catch(e) {
+    console.error(e);
+    showMsg('rMsg', e.message || 'Error al registrar. Intenta de nuevo.','err');
+  }
+
+  btn.disabled = false; btn.textContent = 'REGISTRARME';
+}
+
+/* ================================================
+   LOGIN
+================================================ */
+async function doLogin() {
+  if (!ready) { showMsg('lMsg','Configura Supabase primero (ver README)','err'); return; }
+  const nom  = document.getElementById('lNom').value.trim();
+  const pass = document.getElementById('lPass').value;
+  clrMsg('lMsg');
+
+  if (!nom || !pass) { showMsg('lMsg','Completa todos los campos','err'); return; }
+
+  const btn = document.getElementById('lBtn');
+  btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Verificando…';
+
+  try {
+    const hash = await hashPass(pass);
+    const { data, error } = await sb.from('usuarios')
+      .select('id,nombre_completo,hora_registro')
+      .eq('nombre_completo', nom)
+      .eq('contrasena', hash)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    if (!data) {
+      showMsg('lMsg','Usuario o contraseña incorrectos','err');
+      btn.disabled = false; btn.textContent = 'ENTRAR'; return;
+    }
+
+    // Actualizar último acceso
+    await sb.from('usuarios').update({ ultimo_acceso: new Date().toISOString() }).eq('id', data.id);
+
+    me = data;
+    enterDash();
+  } catch(e) {
+    console.error(e);
+    showMsg('lMsg', e.message || 'Error al conectar. Revisa tu configuración.','err');
+  }
+
+  btn.disabled = false; btn.textContent = 'ENTRAR';
+}
+
+/* ================================================
+   ENTRAR AL DASHBOARD
+================================================ */
+function enterDash() {
+  const nom = me.nombre_completo;
+  const av  = nom.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+  document.getElementById('dAv').textContent   = av;
+  document.getElementById('dNom').textContent  = nom;
+  document.getElementById('dWel').textContent  = `Bienvenido, ${nom.split(' ')[0]} 👋`;
+  document.getElementById('cNom').textContent  = nom;
+  document.getElementById('cFecha').textContent= fmtDate(me.hora_registro);
+
+  document.getElementById('pgLogin').classList.remove('on');
+  document.getElementById('pgDash').classList.add('on');
+  window.scrollTo(0,0);
+}
+
+/* ================================================
+   LOGOUT
+================================================ */
+function doOut() {
+  me = null;
+  document.getElementById('pgDash').classList.remove('on');
+  document.getElementById('pgLogin').classList.add('on');
+  document.getElementById('lNom').value = '';
+  document.getElementById('lPass').value = '';
+  clrMsg('lMsg');
+  window.scrollTo(0,0);
+}
+
+/* ================================================
+   MODAL FLYERS
+================================================ */
+function openModal(file, alt) {
+  const src = FLYERS[file] || file;
+  document.getElementById('mImg').src = src;
+  document.getElementById('mImg').alt = alt || '';
+  document.getElementById('modal').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e, force) {
+  if (force || (e && e.target === document.getElementById('modal'))) {
+    document.getElementById('modal').classList.remove('on');
+    document.getElementById('mImg').src = '';
+    document.body.style.overflow = '';
+  }
+}
+
+/* ================================================
+   UTILS
+================================================ */
+function fmtDate(s) {
+  if (!s) return '—';
+  try {
+    return new Date(s).toLocaleString('es-MX',{
+      day:'2-digit',month:'short',year:'numeric',
+      hour:'2-digit',minute:'2-digit'
+    });
+  } catch { return s; }
+}
+
+// Enter en inputs
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  if (document.getElementById('fpLogin').classList.contains('on')) doLogin();
+  else doReg();
+});
+
+// Cerrar modal con ESC
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal(null, true);
+});
+</script>
+
+</body>
+</html>
