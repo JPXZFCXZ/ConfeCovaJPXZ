@@ -67,7 +67,7 @@
     .go2 { width:200px;height:200px;background:rgba(0,212,255,.08);bottom:0;right:-50px;animation-delay:-9s }
     @keyframes drift { to { transform: translate(18px,-18px) scale(1.06) } }
 
-    /* ─── PAGINAS ────────────────────────────────── */
+    /* ─── PÁGINAS ────────────────────────────────── */
     .pg { position:relative;z-index:1;min-height:100dvh;display:none;flex-direction:column }
     .pg.on { display:flex }
 
@@ -159,6 +159,21 @@
       background-clip: text;
     }
     .lhero p { color: var(--dim); font-size: .8rem; font-weight: 300 }
+
+    /* Subtexto de bienvenida */
+    .login-desc {
+      background: rgba(41,121,255,.06);
+      border: 1px solid rgba(41,121,255,.14);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      font-size: .76rem;
+      color: var(--dim);
+      line-height: 1.6;
+      font-weight: 300;
+      animation: fadeUp .4s .08s ease both;
+    }
+    .login-desc strong { color: var(--wht); font-weight: 600; }
 
     /* Tabs minimalistas */
     .tabs {
@@ -276,7 +291,7 @@
     }
     .chip b { color:var(--wht);font-weight:500 }
 
-    /* Seccion separador */
+    /* Sección separador */
     .sec-head {
       display:flex;align-items:center;gap:10px;
       font-family:'DM Mono',monospace; font-size:.58rem;
@@ -389,7 +404,7 @@
     .lcard h4 { font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;color:var(--wht);margin-bottom:3px }
     .lcard p  { font-size:.68rem;color:var(--dim);line-height:1.45 }
 
-    /* Phishing guide - FRASES DE AYUDA */
+    /* Phishing guide */
     .phish-card {
       background:rgba(255,77,109,.05);border:1px solid rgba(255,77,109,.15);
       border-radius:8px;padding:12px 14px;margin-bottom:8px;
@@ -537,13 +552,13 @@
       <!-- Countdown -->
       <div class="countdown-banner">
         <div>
-          <span class="cb-label">Proxima conferencia</span>
+          <span class="cb-label">Próxima conferencia</span>
           <div class="cb-date">Lunes 6 Abr 2026</div>
         </div>
         <div class="cb-dots">
           <div class="cb-unit">
             <div class="cb-num" id="cdD">--</div>
-            <span class="cb-lbl">dias</span>
+            <span class="cb-lbl">días</span>
           </div>
           <div style="font-family:'DM Mono',monospace;font-size:1rem;color:var(--dim2);align-self:center">:</div>
           <div class="cb-unit">
@@ -564,13 +579,18 @@
         <p>Conferencia de Ciberseguridad en Salud</p>
       </div>
 
+      <!-- Descripción clara y simple -->
+      <div class="login-desc">
+        Bienvenido al portal de la conferencia. Si ya tienes cuenta, ingresa tu nombre para acceder. Si es tu primera vez, regístrate en menos de un minuto y únete al evento del <strong>lunes 6 de abril</strong>.
+      </div>
+
       <div class="tabs">
-        <button class="tab on" onclick="swTab('login')">Iniciar sesion</button>
+        <button class="tab on" onclick="swTab('login')">Iniciar sesión</button>
         <button class="tab"    onclick="swTab('reg')">Registrarse</button>
       </div>
 
       <div class="fcard">
-        <!-- LOGIN (sin contraseña) -->
+        <!-- LOGIN -->
         <div id="fpLogin" class="fpanel on">
           <div class="field">
             <label>Nombre completo</label>
@@ -583,7 +603,7 @@
           <button class="btn" id="lBtn" onclick="doLogin()">ENTRAR</button>
         </div>
         
-        <!-- REGISTRO (nombre, área, estado) -->
+        <!-- REGISTRO -->
         <div id="fpReg" class="fpanel">
           <div class="field">
             <label>Nombre completo</label>
@@ -593,21 +613,21 @@
             </div>
           </div>
           <div class="field">
-            <label>Area</label>
+            <label>Área</label>
             <div class="iw">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12h8M12 8v8"/></svg>
-              <input type="text" id="rArea" placeholder="Ej: Administracion, Enfermeria, Medica"/>
+              <input type="text" id="rArea" placeholder="Ej: Administración, Enfermería, Médica"/>
             </div>
           </div>
           <div class="field">
-            <label>Estado</label>
+            <label>Sede</label>
             <div class="iw">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
               <select id="rEstado">
-                <option value="">Selecciona tu estado</option>
-                <option value="Cordoba">Cordoba</option>
+                <option value="">Selecciona tu sede</option>
+                <option value="Cordoba">Córdoba</option>
                 <option value="Veracruz">Veracruz</option>
-                <option value="Boca del Rio">Boca del Rio</option>
+                <option value="Boca del Rio">Boca del Río</option>
               </select>
             </div>
           </div>
@@ -647,8 +667,8 @@
     <div class="chips">
       <div class="chip">Asistente: <b id="cNom">--</b></div>
       <div class="chip">Registro: <b id="cFecha">--</b></div>
-      <div class="chip">Area: <b id="cArea">--</b></div>
-      <div class="chip">Estado: <b id="cEstado">--</b></div>
+      <div class="chip">Área: <b id="cArea">--</b></div>
+      <div class="chip">Sede: <b id="cEstado">--</b></div>
     </div>
 
     <!-- Flyers -->
@@ -670,7 +690,7 @@
     <div style="display:flex;flex-direction:column;gap:10px">
       <div class="sec-head">Sobre la conferencia</div>
       <div class="intro-text">
-        La <strong>ciberseguridad en salud</strong> es prioridad. Datos sensibles + infraestructura critica = blanco de ataques. Aprende a proteger al <strong>Hospital Covadonga</strong>.
+        La <strong>ciberseguridad en salud</strong> es prioridad. Datos sensibles + infraestructura crítica = blanco de ataques. Aprende a proteger al <strong>Hospital Covadonga</strong>.
       </div>
     </div>
 
@@ -680,7 +700,7 @@
       <div class="ctabs-nav">
         <button class="ctab on" onclick="swCtab(0)">Panorama</button>
         <button class="ctab"    onclick="swCtab(1)">Phishing</button>
-        <button class="ctab"    onclick="swCtab(2)">Practicas</button>
+        <button class="ctab"    onclick="swCtab(2)">Prácticas</button>
         <button class="ctab"    onclick="swCtab(3)">Amenazas</button>
         <button class="ctab"    onclick="swCtab(4)">Legal MX</button>
       </div>
@@ -688,61 +708,61 @@
       <!-- 0: PANORAMA -->
       <div class="ctab-panel on" id="ctp0">
         <div class="stats-grid">
-          <div class="stat"><span class="stat-num">83%</span><span class="stat-lbl">hospitales atacados (2 anos)</span></div>
-          <div class="stat"><span class="stat-num">$11M</span><span class="stat-lbl">costo promedio de brecha</span></div>
-          <div class="stat"><span class="stat-num">277</span><span class="stat-lbl">dias para detectar</span></div>
-          <div class="stat"><span class="stat-num">1/3</span><span class="stat-lbl">ransomware va a salud</span></div>
+          <div class="stat"><span class="stat-num">83%</span><span class="stat-lbl">hospitales atacados (2 años)</span></div>
+          <div class="stat"><span class="stat-num">$11M</span><span class="stat-lbl">costo promedio de una brecha</span></div>
+          <div class="stat"><span class="stat-num">277</span><span class="stat-lbl">días promedio para detectar</span></div>
+          <div class="stat"><span class="stat-num">1/3</span><span class="stat-lbl">del ransomware va al sector salud</span></div>
         </div>
       </div>
 
-      <!-- 1: PHISHING - FRASES DE AYUDA -->
+      <!-- 1: PHISHING -->
       <div class="ctab-panel" id="ctp1">
         <div class="phish-card">
-          <span class="tag-warn">ALERTA DE SEGURIDAD</span>
-          <h4>No abras ese link</h4>
+          <span class="tag-warn">Alerta de Seguridad</span>
+          <h4>No abras ese enlace</h4>
           <div class="phish-list">
-            <div class="phish-item"><div class="phish-dot"></div><span><strong>No hagas clic en enlaces sospechosos</strong> — Verifica siempre la direccion antes de entrar</span></div>
-            <div class="phish-item"><div class="phish-dot"></div><span><strong>Revisa quien te escribe</strong> — Los atacantes falsifican remitentes oficiales</span></div>
-            <div class="phish-item"><div class="phish-dot"></div><span><strong>Desconfia de la urgencia</strong> — "Tu cuenta sera bloqueada" es una tactica comun</span></div>
-            <div class="phish-item"><div class="phish-dot"></div><span><strong>No descargues archivos raros</strong> — Los .exe, .zip o .docm pueden ser virus</span></div>
-            <div class="phish-item"><div class="phish-dot"></div><span><strong>Nadie te pedira tu contrasena</strong> — Ni por correo, ni por WhatsApp, ni por telefono</span></div>
-            <div class="phish-item"><div class="phish-dot"></div><span><strong>Si algo se ve raro, seguro es falso</strong> — Confia en tu instinto</span></div>
+            <div class="phish-item"><div class="phish-dot"></div><span><strong>No hagas clic en enlaces sospechosos</strong> — Verifica siempre la dirección antes de entrar.</span></div>
+            <div class="phish-item"><div class="phish-dot"></div><span><strong>Revisa quién te escribe</strong> — Los atacantes falsifican remitentes oficiales.</span></div>
+            <div class="phish-item"><div class="phish-dot"></div><span><strong>Desconfía de la urgencia</strong> — "Tu cuenta será bloqueada" es una táctica común.</span></div>
+            <div class="phish-item"><div class="phish-dot"></div><span><strong>No descargues archivos desconocidos</strong> — Los .exe, .zip o .docm pueden contener virus.</span></div>
+            <div class="phish-item"><div class="phish-dot"></div><span><strong>Nadie te pedirá tu contraseña</strong> — Ni por correo, ni por WhatsApp, ni por teléfono.</span></div>
+            <div class="phish-item"><div class="phish-dot"></div><span><strong>Si algo se ve raro, probablemente es falso</strong> — Confía en tu instinto.</span></div>
           </div>
         </div>
         <div style="background:rgba(0,212,255,.05);border-radius:8px;padding:10px 14px;font-size:.72rem;color:var(--dim)">
-          REGLA DE ORO: Ante la duda, NO hagas clic. Cierra el mensaje y contacta directamente al hospital por canales oficiales.
+          Regla de oro: Ante la duda, no hagas clic. Cierra el mensaje y contacta directamente al hospital por canales oficiales.
         </div>
       </div>
 
-      <!-- 2: PRACTICAS -->
+      <!-- 2: PRÁCTICAS -->
       <div class="ctab-panel" id="ctp2">
         <div class="tips-list">
-          <div class="tip"><span class="tip-num">01</span><div class="tip-body"><h4>Autenticacion de dos factores</h4><p>Activa el 2FA en todos los accesos criticos del hospital</p></div></div>
-          <div class="tip"><span class="tip-num">02</span><div class="tip-body"><h4>Mantente actualizado</h4><p>Las actualizaciones cierran vulnerabilidades conocidas</p></div></div>
-          <div class="tip"><span class="tip-num">03</span><div class="tip-body"><h4>Respaldos diarios</h4><p>Copia de seguridad fuera de la red principal del hospital</p></div></div>
-          <div class="tip"><span class="tip-num">04</span><div class="tip-body"><h4>Capacitacion continua</h4><p>El 90% de los ataques comienzan con un error humano</p></div></div>
-          <div class="tip"><span class="tip-num">05</span><div class="tip-body"><h4>Redes separadas</h4><p>Los equipos medicos no deben estar en la misma red que las oficinas</p></div></div>
+          <div class="tip"><span class="tip-num">01</span><div class="tip-body"><h4>Autenticación de dos factores</h4><p>Activa el 2FA en todos los accesos críticos del hospital.</p></div></div>
+          <div class="tip"><span class="tip-num">02</span><div class="tip-body"><h4>Mantente actualizado</h4><p>Las actualizaciones cierran vulnerabilidades conocidas.</p></div></div>
+          <div class="tip"><span class="tip-num">03</span><div class="tip-body"><h4>Respaldos diarios</h4><p>Copia de seguridad fuera de la red principal del hospital.</p></div></div>
+          <div class="tip"><span class="tip-num">04</span><div class="tip-body"><h4>Capacitación continua</h4><p>El 90% de los ataques comienzan con un error humano.</p></div></div>
+          <div class="tip"><span class="tip-num">05</span><div class="tip-body"><h4>Redes separadas</h4><p>Los equipos médicos no deben estar en la misma red que las oficinas.</p></div></div>
         </div>
       </div>
 
       <!-- 3: AMENAZAS -->
       <div class="ctab-panel" id="ctp3">
         <div class="threats">
-          <div class="threat-item"><div class="ti-icon"></div><div><h4>Ransomware</h4><p>Cifra toda la informacion del hospital y exige rescate economico</p></div></div>
-          <div class="threat-item"><div class="ti-icon"></div><div><h4>Phishing</h4><p>Correos fraudulentos que roban tus credenciales de acceso</p></div></div>
-          <div class="threat-item"><div class="ti-icon"></div><div><h4>Dispositivos medicos vulnerables</h4><p>Monitores y bombas de infusion sin actualizar son puertas de entrada</p></div></div>
-          <div class="threat-item"><div class="ti-icon"></div><div><h4>Fuga de datos</h4><p>Los expedientes medicos valen 10 veces mas que una tarjeta de credito</p></div></div>
+          <div class="threat-item"><div class="ti-icon">🔒</div><div><h4>Ransomware</h4><p>Cifra toda la información del hospital y exige un rescate económico para liberarla.</p></div></div>
+          <div class="threat-item"><div class="ti-icon">🎣</div><div><h4>Phishing</h4><p>Correos fraudulentos diseñados para robar tus credenciales de acceso.</p></div></div>
+          <div class="threat-item"><div class="ti-icon">💉</div><div><h4>Dispositivos médicos vulnerables</h4><p>Monitores y bombas de infusión sin actualizar son puertas de entrada para atacantes.</p></div></div>
+          <div class="threat-item"><div class="ti-icon">📋</div><div><h4>Fuga de datos</h4><p>Los expedientes médicos valen 10 veces más que una tarjeta de crédito en el mercado negro.</p></div></div>
         </div>
       </div>
 
       <!-- 4: LEGAL MX -->
       <div class="ctab-panel" id="ctp4">
         <div class="legal-grid">
-          <div class="lcard"><span class="lc-tag">Ley Federal</span><h4>LFPDPPP</h4><p>Protege los datos personales de los pacientes</p></div>
-          <div class="lcard"><span class="lc-tag">NOM-004-SSA3</span><h4>Expediente Clinico</h4><p>Regula el resguardo digital de la informacion medica</p></div>
-          <div class="lcard"><span class="lc-tag">Codigo Penal</span><h4>Delitos Informaticos</h4><p>Acceso ilicito a sistemas se castiga con hasta 9 años de prision</p></div>
-          <div class="lcard"><span class="lc-tag">INAI</span><h4>Supervision</h4><p>Organismo que vigila el cumplimiento de la ley de datos</p></div>
-          <div class="lcard"><span class="lc-tag">ISO 27001</span><h4>Estandar Global</h4><p>Certificacion internacional de seguridad de la informacion</p></div>
+          <div class="lcard"><span class="lc-tag">Ley Federal</span><h4>LFPDPPP</h4><p>Protege los datos personales de los pacientes.</p></div>
+          <div class="lcard"><span class="lc-tag">NOM-004-SSA3</span><h4>Expediente Clínico</h4><p>Regula el resguardo digital de la información médica.</p></div>
+          <div class="lcard"><span class="lc-tag">Código Penal</span><h4>Delitos Informáticos</h4><p>El acceso ilícito a sistemas se castiga con hasta 9 años de prisión.</p></div>
+          <div class="lcard"><span class="lc-tag">INAI</span><h4>Supervisión</h4><p>Organismo que vigila el cumplimiento de la ley de protección de datos.</p></div>
+          <div class="lcard"><span class="lc-tag">ISO 27001</span><h4>Estándar Global</h4><p>Certificación internacional de seguridad de la información.</p></div>
         </div>
       </div>
 
@@ -753,19 +773,18 @@
       <div style="text-align: center;">
         <img src="logocova.jpg" alt="Covadonga" class="footer-logo-img-footer" />
       </div>
-      <div class="footer-title">Hospitales y Centros de Diagnostico Covadonga</div>
+      <div class="footer-title">Hospitales y Centros de Diagnóstico Covadonga</div>
       
       <div class="footer-sedes">
-        <div class="sede-item"><strong>Cordoba:</strong> Av. 7 No.1610 Col. San José ·  (271) 7145520</div>
+        <div class="sede-item"><strong>Córdoba:</strong> Av. 7 No.1610 Col. San José · (271) 7145520</div>
         <div class="sede-item"><strong>Veracruz:</strong> Av. Flores Magón esq. Pérez Abascal · (229) 9808913</div>
         <div class="sede-item"><strong>Orizaba:</strong> Sur 5 No. 398 Centro · (272) 7255019</div>
-        <div class="sede-item"><strong>Boca del Rio:</strong> Carr. Boca del Río-Córdoba frente a Paso Colorado · (272) 7255019</div>
-
+        <div class="sede-item"><strong>Boca del Río:</strong> Carr. Boca del Río-Córdoba frente a Paso Colorado · (272) 7255019</div>
       </div>
 
       <div class="footer-help">
         <p><strong>¿Recibiste un mensaje sospechoso?</strong></p>
-        <p>No abras el link · No descargues archivos · No compartas tus datos</p>
+        <p>No abras el enlace · No descargues archivos · No compartas tus datos</p>
       </div>
 
       <div class="footer-contacto">
@@ -773,7 +792,7 @@
       </div>
 
       <div class="footer-copy">
-        Hospital Covadonga © 2026 · Conferencia de Ciberseguridad en Salud · Protegiendo tu informacion
+        Hospital Covadonga © 2026 · Conferencia de Ciberseguridad en Salud · Protegiendo tu información
       </div>
     </div>
 
@@ -844,7 +863,7 @@ function clrMsg(id){
 }
 
 async function doReg(){
-  if(!ready){showMsg('rMsg','Error de conexion','err');return;}
+  if(!ready){showMsg('rMsg','Error de conexión','err');return;}
   const nom=document.getElementById('rNom').value.trim();
   const area=document.getElementById('rArea').value.trim();
   const estado=document.getElementById('rEstado').value;
@@ -852,8 +871,8 @@ async function doReg(){
   
   if(!nom){showMsg('rMsg','Ingresa tu nombre completo','err');return;}
   if(nom.length<3){showMsg('rMsg','Nombre demasiado corto','err');return;}
-  if(!area){showMsg('rMsg','Ingresa tu area','err');return;}
-  if(!estado){showMsg('rMsg','Selecciona un estado','err');return;}
+  if(!area){showMsg('rMsg','Ingresa tu área','err');return;}
+  if(!estado){showMsg('rMsg','Selecciona una sede','err');return;}
   
   const btn=document.getElementById('rBtn');
   btn.disabled=true; btn.innerHTML='<span class="spin"></span> Registrando...';
@@ -868,7 +887,7 @@ async function doReg(){
       hora_registro:new Date().toISOString()
     }]);
     if(error)throw error;
-    showMsg('rMsg','Registro exitoso. Ya puedes iniciar sesion.','ok');
+    showMsg('rMsg','¡Registro exitoso! Ya puedes iniciar sesión.','ok');
     document.getElementById('rNom').value='';
     document.getElementById('rArea').value='';
     document.getElementById('rEstado').value='';
@@ -880,7 +899,7 @@ async function doReg(){
 }
 
 async function doLogin(){
-  if(!ready){showMsg('lMsg','Error de conexion','err');return;}
+  if(!ready){showMsg('lMsg','Error de conexión','err');return;}
   const nom=document.getElementById('lNom').value.trim();
   clrMsg('lMsg');
   if(!nom){showMsg('lMsg','Ingresa tu nombre completo','err');return;}
@@ -891,7 +910,7 @@ async function doLogin(){
     const{data,error}=await sb.from('usuarios').select('id,nombre_completo,hora_registro,area,estado')
       .eq('nombre_completo',nom).maybeSingle();
     if(error)throw error;
-    if(!data){showMsg('lMsg','Usuario no encontrado. Debes registrarte primero','err');btn.disabled=false;btn.textContent='ENTRAR';return;}
+    if(!data){showMsg('lMsg','Usuario no encontrado. Regístrate primero.','err');btn.disabled=false;btn.textContent='ENTRAR';return;}
     
     await sb.from('usuarios').update({ultimo_acceso:new Date().toISOString()}).eq('id',data.id);
     me=data; enterDash();
